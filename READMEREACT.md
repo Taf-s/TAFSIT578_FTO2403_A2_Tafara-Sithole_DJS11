@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# Podcast App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React-based podcast application that allows users to browse and listen to podcasts. The app fetches data from a podcast API and organizes it into Shows, Seasons, and Episodes.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Project Structure](#project-structure)
+- [Setup](#setup)
+- [Components](#components)
+- [Routing](#routing)
+- [Styling](#styling)
+- [Features](#features)
+- [API Endpoints](#api-endpoints)
 
-### `npm start`
+## Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The project is organized as follows:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+src/
+│
+├── components/
+│ ├── Navbar.js # Navigation bar component
+│ ├── ShowList.js # Component to list all shows
+│ ├── ShowCard.js # Component to display a single show with preview and details
+│ ├── SeasonList.js # Component to list all seasons of a show
+│ ├── SeasonCard.js # Component to display a single season with preview and details
+│ ├── EpisodeList.js # Component to list all episodes in a season
+│ └── EpisodePlayer.js # Component to play an episode
+│
+├── pages/
+│ ├── HomePage.js # Homepage with all shows listed
+│ ├── ShowPage.js # Detailed view of a specific show with seasons
+│ ├── GenrePage.js # Genre-specific page
+│ ├── FavouritesPage.js # Detailed view of all favourite shows
+│
+├── utils/
+│ └── formatDate.js # Utility function to format dates
+└── search.js # Utility function for searching/filtering shows, seasons, or episodes
+│
+├── App.js # Main application component
+├── index.js # Entry point for React
+└── index.css # Tailwind CSS imports
 
-### `npm test`
+## Components
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Navbar
 
-### `npm run build`
+The Navbar component is located in `src/components/Navbar.js`. It handles the main navigation for the app, with links to the homepage, all shows, genres, and the search page. The navigation is responsive and includes a toggleable menu for mobile devices.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ShowList
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Displays a list of all available shows, sorted alphabetically by default.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ShowCard
 
-### `npm run eject`
+Displays a single show’s preview image, name, number of seasons, last updated date, and associated genres.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### SeasonList
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Displays all seasons of a specific show.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### SeasonCard
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Displays a single season’s preview image, name, and the number of episodes.
 
-## Learn More
+### EpisodeList
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Lists all episodes within a specific season.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### EpisodePlayer
 
-### Code Splitting
+Plays a selected episode using a placeholder audio track.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Utils
 
-### Analyzing the Bundle Size
+- **formatDate.js**: Utility function to format dates.
+- **search.js**: Utility function to search and filter shows, seasons, or episodes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Routing
 
-### Making a Progressive Web App
+The application uses `react-router-dom` for routing. The main routes are defined in `App.js`, which includes:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `/`: `HomePage`
+- `/shows`: `AllShowsPage`
+- `/show/:id`: `ShowPage`
+- `/genre/:id`: `GenrePage`
+- `/season/:id`: `SeasonPage`
+- `/search`: `SearchPage`
 
-### Advanced Configuration
+## Styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The application uses Tailwind CSS for styling. The `index.css` file imports the necessary Tailwind directives. The design is mobile-first, with responsive layouts handled by Tailwind's utility classes.
 
-### Deployment
+## Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Alphabetical Sorting of Shows**: Shows are sorted alphabetically by default.
+- **Listen to Episodes**: Users can play a placeholder audio track for any episode.
+- **Season-Specific View**: Users can view all episodes in a selected season.
+- **Toggle Between Seasons**: Users can switch between seasons of a show.
+- **Show Preview Images**: Preview images are displayed when browsing shows.
+- **Number of Seasons**: The number of seasons is displayed for each show.
+- **Human-Readable Last Updated Date**: Shows the date when a show was last updated in a human-readable format.
+- **Show Genres**: Displays the genres associated with each show.
+- **Season Preview Images**: Displays a preview image for each season.
+- **Number of Episodes in a Season**: The number of episodes is displayed for each season.
+- **Back to Show View**: Users can navigate back to the show view from the season-specific view.
 
-### `npm run build` fails to minify
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The app interacts with the following API endpoints:
+
+- `https://podcast-api.netlify.app`: Returns an array of `PREVIEW` objects.
+- `https://podcast-api.netlify.app/genre/<ID>`: Returns a `GENRE` object.
+- `https://podcast-api.netlify.app/id/<ID>`: Returns a `SHOW` object with embedded `SEASON` and `EPISODE` objects.
+
+## Future Work
+
+- Implement additional features like user authentication, favorites, and more.
+- Add more detailed views and functionality as needed.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
