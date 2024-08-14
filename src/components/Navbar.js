@@ -23,7 +23,7 @@ const Navbar = () => {
         {/* Logo and Podcast Name */}
         <div className="flex items-center text-white">
           <img src={logo} alt="PodAI Logo" className="h-10 w-10 mr-2" />
-          <span className="text-2xl font-bold">PodAI</span>
+          <span className="text-6xl font-bold">PodAI</span>
         </div>
 
         {/* Desktop Menu */}
