@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
-// import { useSearch } from "../context/SearchProvider";
+import { useSearch } from "../context/searchProvider";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  //   const { searchQuery, handleSearch } = useSearch();
+  const { searchQuery, handleSearch } = useSearch();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  //   const handleInputChange = (event) => {
-  //     const query = event.target.value;
-  //     handleSearch(query);
-  //   };
+  const handleInputChange = (event) => {
+    const query = event.target.value;
+    handleSearch(query);
+  };
 
   return (
     <nav className="bg-gray-800 p-4">
@@ -37,7 +37,7 @@ const Navbar = () => {
           <li>
             <Link to="/favourites">Favourites</Link>
           </li>
-          {/* <li>
+          <li>
             <input
               type="text"
               placeholder="Search shows..."
@@ -45,7 +45,7 @@ const Navbar = () => {
               onChange={handleInputChange}
               className="p-2 rounded bg-gray-700 text-white"
             />
-          </li> */}
+          </li>
         </ul>
 
         {/* Mobile Menu Icon */}
@@ -78,7 +78,7 @@ const Navbar = () => {
             Favourites
           </Link>
         </li>
-        {/* <li>
+        <li>
           <input
             type="text"
             placeholder="Search shows..."
@@ -86,7 +86,7 @@ const Navbar = () => {
             onChange={handleInputChange}
             className="p-2 rounded bg-gray-600 text-white w-full"
           />
-        </li> */}
+        </li>
       </ul>
     </nav>
   );
