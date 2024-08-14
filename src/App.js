@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import GenrePage from "./pages/GenrePage";
 import FavouritesPage from "./pages/FavouritesPage";
-import SearchProvider from "./context/searchProvider";
+import SearchProvider from "/context/SearchProvider";
 import { fetchPreviews } from "./services/fetchpreviews";
 
 function App() {
