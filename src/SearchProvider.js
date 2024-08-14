@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import { searchShows } from "../utils/search";
+import { searchShows } from "./utils/search";
 
 const SearchContext = createContext();
 
