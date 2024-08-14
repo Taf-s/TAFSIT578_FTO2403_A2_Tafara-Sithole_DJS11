@@ -18,6 +18,9 @@ The project is organized as follows:
 
 src/
 │
+├── assets/
+│ └── logo.png
+|
 ├── components/
 │ ├── Navbar.js # Navigation bar component
 │ ├── ShowList.js # Component to list all shows
@@ -27,12 +30,20 @@ src/
 │ ├── EpisodeList.js # Component to list all episodes in a season
 │ └── EpisodePlayer.js # Component to play an episode
 │
+├── context/
+│ └── SearchProvider.js
+|
 ├── pages/
 │ ├── HomePage.js # Homepage with all shows listed
 │ ├── ShowPage.js # Detailed view of a specific show with seasons
 │ ├── GenrePage.js # Genre-specific page
 │ ├── FavouritesPage.js # Detailed view of all favourite shows
 │
+├── services/
+│ ├── fetchPreviews.js
+│ ├── fetchGenre.js
+│ └── fetchShow.js
+|
 ├── utils/
 │ └── formatDate.js # Utility function to format dates
 └── search.js # Utility function for searching/filtering shows, seasons, or episodes
@@ -81,7 +92,6 @@ Plays a selected episode using a placeholder audio track.
 The application uses `react-router-dom` for routing. The main routes are defined in `App.js`, which includes:
 
 - `/`: `HomePage`
-- `/shows`: `AllShowsPage`
 - `/show/:id`: `ShowPage`
 - `/genre/:id`: `GenrePage`
 - `/season/:id`: `SeasonPage`
