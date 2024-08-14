@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { SearchContext } from "../SearchProvider";
+import ShowCard from "../components/ShowCard";
 
 function HomePage() {
+  const { filteredShows } = useContext(SearchContext);
+  console.log("filteredShows:", filteredShows);
+
+  if (filteredShows.length === 0) {
+    return <div>No shows available</div>;
+  }
+
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-8">All Shows</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {filteredShows.map((show) => (
+          <ShowCard key={show.id} show={show} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -16,6 +16,7 @@ function App() {
     const getShows = async () => {
       try {
         const data = await fetchPreviews();
+        console.log("Fetched Shows: ", data); // Check if data is being fetched correctly
         setShows(data);
       } catch (error) {
         console.error("Failed to fetch shows:", error);

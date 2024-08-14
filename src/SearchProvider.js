@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { searchShows } from "./utils/search";
 
 const SearchContext = createContext();
@@ -11,6 +11,9 @@ const SearchProvider = ({ shows, children }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredShows, setFilteredShows] = useState(shows);
 
+  useEffect(() => {
+    setFilteredShows(shows);
+  }, [shows]);
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (query) {
@@ -30,3 +33,4 @@ const SearchProvider = ({ shows, children }) => {
 };
 
 export default SearchProvider;
+export { SearchContext };
