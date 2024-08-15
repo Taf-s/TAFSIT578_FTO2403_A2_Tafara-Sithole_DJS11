@@ -14,6 +14,7 @@ const SearchProvider = ({ shows, children }) => {
   useEffect(() => {
     setFilteredShows(shows);
   }, [shows]);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
     if (query) {

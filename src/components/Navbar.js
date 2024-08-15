@@ -20,27 +20,29 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center relative">
-        {/* Logo and Podcast Name */}
+        {/* Logo and Menu Items */}
         <div className="flex items-center text-white">
-          <img src={logo} alt="PodAI Logo" className="h-10 w-10 mr-2" />
-          <span className="text-6xl font-bold">PodAI</span>
+          <img src={logo} alt="PodAI Logo" className="h-10 w-10 mr-2 ml-4" />
+          <span className="text-6xl font-bold ml-2">PodAI</span>
+          <ul className="hidden md:flex space-x-6 text-white ml-10">
+            <li>
+              <Link to="/">Shows</Link>
+            </li>
+            <li>
+              <Link to="/genre">Genres</Link>
+            </li>
+            <li>
+              <Link to="/favourites">Favourites</Link>
+            </li>
+          </ul>
         </div>
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 text-white">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/genre">Genres</Link>
-          </li>
-          <li>
-            <Link to="/favourites">Favourites</Link>
-          </li>
+        {/* Search Bar */}
+        <ul className="hidden md:flex space-x-6 mr-4 text-white">
           <li>
             <input
               type="text"
-              placeholder="Search shows..."
+              placeholder="Search podcasts....."
               value={searchQuery}
               onChange={handleInputChange}
               className="p-2 rounded bg-gray-700 text-white"
