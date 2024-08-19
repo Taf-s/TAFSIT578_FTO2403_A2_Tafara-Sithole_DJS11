@@ -5,8 +5,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import GenrePage from "./pages/GenrePage";
+import GenreShowsPage from "./pages/GenreShowsPage";
 import FavouritesPage from "./pages/FavouritesPage";
 import SearchProvider from "./SearchProvider";
+import { GenresProvider } from "./context/GenresContex";
 import { fetchPreviews } from "./services/fetchpreviews";
 
 function App() {
@@ -28,14 +30,20 @@ function App() {
 
   return (
     <Router>
-      <SearchProvider shows={shows}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/genre" element={<GenrePage />} />
-          <Route path="/favourites" element={<FavouritesPage />} />
-        </Routes>
-      </SearchProvider>
+      <GenresProvider>
+        <SearchProvider shows={shows}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/genre" element={<GenrePage />} />
+            <Route
+              path="/genre/:id"
+              element={<GenreShowsPage shows={shows} />}
+            />
+            <Route path="/favourites" element={<FavouritesPage />} />
+          </Routes>
+        </SearchProvider>
+      </GenresProvider>
     </Router>
   );
 }
