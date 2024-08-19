@@ -5,11 +5,14 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import GenrePage from "./pages/GenrePage";
+// import ShowsPage from "./pages/ShowsPage";
 import GenreShowsPage from "./pages/GenreShowsPage";
 import FavouritesPage from "./pages/FavouritesPage";
 import SearchProvider from "./SearchProvider";
 import { GenresProvider } from "./context/GenresContex";
+import { ShowsProvider } from "./context/ShowsContext";
 import { fetchPreviews } from "./services/fetchpreviews";
+import ShowsPage from "./pages/ShowsPage.js";
 
 function App() {
   const [shows, setShows] = useState([]);
@@ -30,20 +33,23 @@ function App() {
 
   return (
     <Router>
-      <GenresProvider>
-        <SearchProvider shows={shows}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/genre" element={<GenrePage />} />
-            <Route
-              path="/genre/:id"
-              element={<GenreShowsPage shows={shows} />}
-            />
-            <Route path="/favourites" element={<FavouritesPage />} />
-          </Routes>
-        </SearchProvider>
-      </GenresProvider>
+      <ShowsProvider>
+        <GenresProvider>
+          <SearchProvider shows={shows}>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/genre" element={<GenrePage />} />
+              <Route path="/show/:showId" element={<ShowsPage />} />
+              <Route
+                path="/genre/:id"
+                element={<GenreShowsPage shows={shows} />}
+              />
+              <Route path="/favourites" element={<FavouritesPage />} />
+            </Routes>
+          </SearchProvider>
+        </GenresProvider>
+      </ShowsProvider>
     </Router>
   );
 }

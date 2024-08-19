@@ -12,6 +12,7 @@ export const ShowsProvider = ({ children }) => {
       try {
         const data = await fetchShows(); // Fetch all shows (with basic info)
         setShows(data);
+        console.log("SHLOG22", { shows });
       } catch (error) {
         console.error("Failed to fetch shows:", error);
       } finally {
@@ -20,7 +21,7 @@ export const ShowsProvider = ({ children }) => {
     };
 
     getShows();
-  }, []);
+  });
 
   return (
     <ShowsContext.Provider value={{ shows, loading }}>
