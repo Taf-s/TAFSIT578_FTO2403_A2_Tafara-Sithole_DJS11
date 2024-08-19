@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { ShowsContext } from "../context/ShowsContext"; // Adjust the import path as needed
 import { useParams } from "react-router-dom";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ShowsPage = () => {
   let { showId } = useParams();
@@ -60,7 +62,7 @@ const ShowsPage = () => {
       </div>
 
       <div className="mb-6">
-        <div className="flex overflow-x-auto space-x-4  transition duration-300 transform hover:scale-105 hover:translate-y-2 hover:rotate-0 hover:shadow-2xl">
+        <Carousel showArrows={true} infinite={false}>
           {show.seasons.map((season) => (
             <div
               key={season.id}
@@ -77,7 +79,7 @@ const ShowsPage = () => {
               </div>
             </div>
           ))}
-        </div>
+        </Carousel>
       </div>
 
       {selectedSeason && (
