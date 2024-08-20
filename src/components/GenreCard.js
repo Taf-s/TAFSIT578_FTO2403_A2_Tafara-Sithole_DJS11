@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function GenreCard({ genre }) {
-  //   const randomShow = shows[Math.floor(Math.random() * shows.length)];
+  // const randomShow = shows[Math.floor(Math.random() * shows.length)];
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden relative transition duration-300 transform hover:scale-105 hover:translate-y-2 hover:rotate-0 hover:shadow-2xl">
       <Link to={`/genre/${genre.id}`}>

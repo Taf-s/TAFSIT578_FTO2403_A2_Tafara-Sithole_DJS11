@@ -8,7 +8,7 @@ const ShowsPage = () => {
   let { showId } = useParams();
   const { shows, loading, error } = useContext(ShowsContext);
   const [selectedSeason, setSelectedSeason] = useState(null);
-  const [episode, setEpisodes] = useState([]);
+  const [episodes, setEpisodes] = useState([]);
 
   console.log("SHOW ID", showId);
 
@@ -16,16 +16,20 @@ const ShowsPage = () => {
 
   const handleSeasonClick = async (season) => {
     try {
-      const response = await fetch(
-        `https://podcast-api.netlify.app/show/${showId}/season/${season}`
-      );
-      const data = await response.json();
-      setEpisodes(data.episodes);
-      setSelectedSeason(season);
+      // Directly get the episodes from the clicked season
+      const episodes = season.episodes;
+
+      // Update state with these episodes
+      setEpisodes(episodes);
+
+      // Set the selected season ID
+      setSelectedSeason(season.season);
     } catch (err) {
       console.error("Error fetching episodes:", err);
     }
   };
+
+  console.log("Filtered Episodes:", episodes);
 
   if (loading) return <div className="text-center py-4">Loading...</div>;
   if (error)
@@ -85,15 +89,19 @@ const ShowsPage = () => {
       {selectedSeason && (
         <div>
           <h2 className="text-xl font-semibold mb-2">
-            Episodes for Season {selectedSeason}
+            Season {selectedSeason}: {episodes.length} Episodes
           </h2>
-          <ul className="list-disc pl-5">
-            {show.episodes.map((episode) => (
-              <li key={episode.id} className="mb-2">
-                {episode.title}
+          <ol className="list-decimal list-inside">
+            {episodes.map((episode) => (
+              <li
+                key={episode.id}
+                className="bg-gray-200 rounded-lg shadow-md w-full mb-2"
+              >
+                <span className="text-lg leading-none">{episode.title}</span>
+                <div className="">{episode.description}</div>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       )}
     </div>
