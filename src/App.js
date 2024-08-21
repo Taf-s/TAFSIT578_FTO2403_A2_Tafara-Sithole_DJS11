@@ -9,8 +9,10 @@ import ShowsPage from "./pages/ShowsPage.js";
 import GenreShowsPage from "./pages/GenreShowsPage";
 import FavouritesPage from "./pages/FavouritesPage";
 import SearchProvider from "./SearchProvider";
+import EpisodePlayer from "./components/EpisodePlayer.js";
 import { GenresProvider } from "./context/GenresContex";
 import { ShowsProvider } from "./context/ShowsContext";
+import { EpisodePlayerProvider } from "./context/EpisoidePlayerContext";
 import { fetchPreviews } from "./services/fetchpreviews";
 
 function App() {
@@ -32,23 +34,26 @@ function App() {
 
   return (
     <Router>
-      <ShowsProvider>
-        <GenresProvider>
-          <SearchProvider shows={shows}>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/genre" element={<GenrePage />} />
-              <Route path="/show/:showId" element={<ShowsPage />} />
-              <Route
-                path="/genre/:id"
-                element={<GenreShowsPage shows={shows} />}
-              />
-              <Route path="/favourites" element={<FavouritesPage />} />
-            </Routes>
-          </SearchProvider>
-        </GenresProvider>
-      </ShowsProvider>
+      <EpisodePlayerProvider>
+        <ShowsProvider>
+          <GenresProvider>
+            <SearchProvider shows={shows}>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/genre" element={<GenrePage />} />
+                <Route path="/show/:showId" element={<ShowsPage />} />
+                <Route
+                  path="/genre/:id"
+                  element={<GenreShowsPage shows={shows} />}
+                />
+                <Route path="/favourites" element={<FavouritesPage />} />
+              </Routes>
+              <EpisodePlayer />
+            </SearchProvider>
+          </GenresProvider>
+        </ShowsProvider>
+      </EpisodePlayerProvider>
     </Router>
   );
 }

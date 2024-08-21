@@ -3,12 +3,14 @@ import { ShowsContext } from "../context/ShowsContext"; // Adjust the import pat
 import { useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useEpisodePlayer } from "../context/EpisoidePlayerContext";
 
 const ShowsPage = () => {
   let { showId } = useParams();
   const { shows, loading, error } = useContext(ShowsContext);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [episodes, setEpisodes] = useState([]);
+  const { setCurrentEpisode } = useEpisodePlayer();
 
   const show = shows.find((show) => show.id === showId);
 
@@ -25,6 +27,11 @@ const ShowsPage = () => {
     } catch (err) {
       console.error("Error fetching episodes:", err);
     }
+  };
+
+  const handleEpisodeClick = (episode) => {
+    console.log("handleEpisodeClick called with episode:", episode);
+    setCurrentEpisode(episode);
   };
 
   if (loading) return <div className="text-center py-4">Loading...</div>;
@@ -92,6 +99,7 @@ const ShowsPage = () => {
               <li
                 key={episode.id}
                 className="bg-gray-200 rounded-lg shadow-md w-full mb-2"
+                onClick={() => handleEpisodeClick(episode)}
               >
                 <span className="text-lg leading-none">{episode.title}</span>
                 <div className="">{episode.description}</div>
