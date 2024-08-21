@@ -81,7 +81,7 @@ const ShowsPage = () => {
                 alt={season.title}
                 className="w-full rounded-lg object-cover object-center"
               />
-              <div className="absolute top-0 left-0 right-0 p-4 text-white bg-black bg-opacity-20 rounded-md flex flex-col justify-center items-left h-1/5">
+              <div className="absolute top-0 left-0 right-0 p-4 text-customYellow bg-black bg-opacity-50 rounded-md flex flex-col justify-center items-left h-1/5">
                 <h2 className="text-lg font-bold">{season.title}</h2>
               </div>
             </div>
@@ -98,11 +98,13 @@ const ShowsPage = () => {
             {episodes.map((episode) => (
               <li
                 key={episode.id}
-                className="bg-gray-200 rounded-lg shadow-md w-full mb-2"
+                className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue"
                 onClick={() => handleEpisodeClick(episode)}
               >
-                <span className="text-lg leading-none">{episode.title}</span>
-                <div className="">{episode.description}</div>
+                <span className="text-2xl text-white leading-none">
+                  {episode.title}
+                </span>
+                <div className="text-gray-400">{episode.description}</div>
               </li>
             ))}
           </ol>
