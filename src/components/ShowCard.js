@@ -23,7 +23,7 @@ function ShowCard({ show }) {
         <div className="text-white">
           <h2 className="text-lg font-bold">{show.title}</h2>
           {/* <p className="text-sm text-gray-200"> {show.season} Seasons</p> */}
-          <p className="text-sm text-gray-200">
+          <p className="text-sm text-white">
             Last Updated: {new Date(show.updated).toLocaleDateString()}
           </p>
           <div className="mt-2 flex flex-wrap">
@@ -31,7 +31,7 @@ function ShowCard({ show }) {
               show.genres.map((genre, index) => (
                 <span
                   key={index}
-                  className="inline-block bg-gray-200 text-gray-800 text-xs px-1 py-0.5 rounded-full mr-1 mb-1"
+                  className="inline-block  text-white text-xs px-1 py-0 mr-1 mb-1"
                 >
                   {genreMapping[genre]}
                 </span>
