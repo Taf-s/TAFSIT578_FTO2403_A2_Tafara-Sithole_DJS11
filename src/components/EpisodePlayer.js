@@ -5,13 +5,13 @@ function EpisodePlayer() {
   const { currentEpisode, isPlaying, playPause } = useEpisodePlayer();
 
   return (
-    <div className="sticky bottom-0 z-50 left-0 right-0 bg-gray-900 text-white p-4 flex flex-col md:flex-row items-center justify-between shadow-lg transition-all duration-300 ease-in-out">
+    <div className="max-w-5xl mx-auto p-4 rounded-lg sticky bottom-0 z-50 left-0 right-0 bg-customBlack text-white flex flex-col md:flex-row items-center justify-between shadow-lg transition-all duration-300 ease-in-out">
       {currentEpisode ? (
         <div className="flex items-center w-full">
           {/* Episode Info */}
           <div className="flex items-center space-x-4 w-1/3">
             <img
-              src={currentEpisode.image}
+              //   src={currentEpisode.season.image}
               alt={currentEpisode.title}
               className="w-12 h-12 object-cover rounded"
             />

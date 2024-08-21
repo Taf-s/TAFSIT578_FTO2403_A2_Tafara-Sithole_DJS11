@@ -18,12 +18,22 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-customBlack p-4">
       <div className="container mx-auto flex justify-between items-center relative">
         {/* Logo and Menu Items */}
         <div className="flex items-center text-white">
           <img src={logo} alt="PodAI Logo" className="h-10 w-10 mr-2 ml-4" />
-          <span className="text-6xl font-bold ml-2">PodAI</span>
+          <span
+            className="text-6xl font-bold ml-2"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #FF0000, #FFBA00, #00AB47, #4086F3)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+            }}
+          >
+            PodAI
+          </span>
           <ul className="hidden md:flex space-x-6 text-white ml-10">
             <li>
               <Link to="/">Shows</Link>
@@ -63,7 +73,7 @@ const Navbar = () => {
       <ul
         className={`md:hidden ${
           isMobileMenuOpen ? "block" : "hidden"
-        } bg-gray-700 text-white p-4`}
+        } bg-customBlack text-white p-4`}
       >
         <li className="py-2">
           <Link to="/" onClick={toggleMobileMenu}>

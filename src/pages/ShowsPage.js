@@ -52,7 +52,7 @@ const ShowsPage = () => {
           alt={show.title}
           className="w-full h-96 object-cover object-center mx-auto rounded-lg shadow-lg"
         />
-        <div className="absolute top-0 left-0 right-0 p-4 text-white bg-black bg-opacity-20 rounded-md flex flex-col justify-center items-left h-1/5 ">
+        <div className="absolute top-0 left-0 right-0 p-4 text-customYellow bg-black bg-opacity-50 rounded-md flex flex-col justify-center items-left h-1/5 ">
           <h1 className="text-3xl font-bold mb-2">{show.title}</h1>
           <p className="text-m">{show.seasons.length} Seasons</p>
           <p className="text-m">
@@ -63,8 +63,8 @@ const ShowsPage = () => {
             ))}
           </p>
         </div>
-        <div className="p-4 bg-gray-200 rounded-lg shadow-md mt-4">
-          <p className="text-base">{show.description}</p>
+        <div className="p-4 bg-customBlack rounded-lg shadow-md mt-4">
+          <p className="text-base text-white">{show.description}</p>
         </div>
       </div>
 

@@ -19,11 +19,11 @@ function ShowCard({ show }) {
           className="w-full h-full object-cover"
         />
       </Link>
-      <div className="absolute bottom-3 left-3 right-3 p-4 bg-black bg-opacity-50 rounded-md flex flex-col justify-center items-left h-1/3">
-        <div className="text-white">
+      <div className="absolute bottom-3 left-3 right-3 p-4 bg-black bg-opacity-80 rounded-md flex flex-col justify-center items-left h-1/3">
+        <div className="text-customYellow">
           <h2 className="text-lg font-bold">{show.title}</h2>
           {/* <p className="text-sm text-gray-200"> {show.season} Seasons</p> */}
-          <p className="text-sm text-white">
+          <p className="text-sm text-customYellow">
             Last Updated: {new Date(show.updated).toLocaleDateString()}
           </p>
           <div className="mt-2 flex flex-wrap">
@@ -31,7 +31,7 @@ function ShowCard({ show }) {
               show.genres.map((genre, index) => (
                 <span
                   key={index}
-                  className="inline-block  text-white text-xs px-1 py-0 mr-1 mb-1"
+                  className="inline-block  text-customYellow text-xs px-1 py-0 mr-1 mb-1"
                 >
                   {genreMapping[genre]}
                 </span>

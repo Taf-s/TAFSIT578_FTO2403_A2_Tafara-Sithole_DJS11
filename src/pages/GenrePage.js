@@ -41,8 +41,8 @@ function GenrePage() {
                   className="w-full object-cover"
                 />
               </Link>
-              <div className="absolute bottom-3 left-3 right-3 p-4 bg-black bg-opacity-50 rounded-md flex flex-col justify-center items-center h-1/5">
-                <div className="text-white">
+              <div className="absolute bottom-3 left-3 right-3 p-4 bg-black bg-opacity-80 rounded-md flex flex-col justify-center items-center h-1/5">
+                <div className="text-customYellow">
                   <h2 className="text-xl font-bold">{genre.title}</h2>
                 </div>
               </div>

@@ -37,8 +37,8 @@ function GenreShowsPage() {
   return (
     <EpisodePlayerProvider>
       <div className="container mx-auto px-4 py-8">
-        <h1 className="mt-4 font-bold text-3xl">{genre.title}</h1>
-        <p className="mt-2 text-m ">{genre.description}</p>
+        <h1 className="mt-4 font-bold text-3xl text-white">{genre.title}</h1>
+        <p className="mt-2 text-m text-white ">{genre.description}</p>
 
         {shows.length > 0 && (
           <div className=" mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
