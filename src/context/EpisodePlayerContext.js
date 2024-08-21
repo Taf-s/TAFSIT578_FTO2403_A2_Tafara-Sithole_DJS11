@@ -5,6 +5,7 @@ import React, {
   useRef,
   useEffect,
 } from "react";
+import { fetchShowsData } from "../utils/fetchShowsDataUtils";
 
 const EpisodePlayerContext = createContext();
 
@@ -15,10 +16,18 @@ export function useEpisodePlayer() {
 export function EpisodePlayerProvider({ children }) {
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [shows, setShows] = useState([]);
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    fetchShowsData().then((data) => {
+      setShows(data);
+    });
+  }, []);
 
   const playPause = () => {
     if (audioRef.current) {
+      console.log("Audio src:", audioRef.current.src);
       if (isPlaying) {
         audioRef.current.pause();
       } else {
@@ -28,21 +37,18 @@ export function EpisodePlayerProvider({ children }) {
     }
   };
 
-  useEffect(
-    (isPlaying) => {
-      if (currentEpisode && audioRef.current) {
-        audioRef.current.src = currentEpisode.audioUrl;
-        if (isPlaying) {
-          audioRef.current.play();
-        }
+  useEffect(() => {
+    if (currentEpisode && audioRef.current) {
+      audioRef.current.src = currentEpisode.audioUrl;
+      if (isPlaying) {
+        audioRef.current.play();
       }
-    },
-    [currentEpisode]
-  );
+    }
+  }, [currentEpisode, isPlaying]);
 
   return (
     <EpisodePlayerContext.Provider
-      value={{ currentEpisode, setCurrentEpisode, isPlaying, playPause }}
+      value={{ currentEpisode, setCurrentEpisode, isPlaying, playPause, shows }}
     >
       {children}
       <audio ref={audioRef} />

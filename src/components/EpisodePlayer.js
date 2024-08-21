@@ -1,5 +1,5 @@
 import React from "react";
-import { useEpisodePlayer } from "../context/EpisoidePlayerContext";
+import { useEpisodePlayer } from "../context/EpisodePlayerContext";
 
 function EpisodePlayer() {
   const { currentEpisode, isPlaying, playPause } = useEpisodePlayer();

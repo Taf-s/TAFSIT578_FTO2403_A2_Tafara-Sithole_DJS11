@@ -3,7 +3,7 @@ import { ShowsContext } from "../context/ShowsContext"; // Adjust the import pat
 import { useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useEpisodePlayer } from "../context/EpisoidePlayerContext";
+import { useEpisodePlayer } from "../context/EpisodePlayerContext";
 
 const ShowsPage = () => {
   let { showId } = useParams();

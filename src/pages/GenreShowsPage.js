@@ -1,10 +1,12 @@
 // src/pages/GenreShowsPage.js
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { fetchShows } from "../services/fetchshow";
+// import { fetchShows } from "../services/fetchshow";
+import { fetchShowsData } from "../utils/fetchShowsDataUtils";
 import { GenresContext } from "../context/GenresContex";
 import ShowCard from "../components/ShowCard";
 import { genreMapping } from "../utils/genreUtils";
+import { EpisodePlayerProvider } from "../context/EpisodePlayerContext";
 
 function GenreShowsPage() {
   const { id } = useParams(); // Get genre ID from the route
@@ -18,24 +20,8 @@ function GenreShowsPage() {
     setGenre(currentGenre);
 
     if (!shows.length && currentGenre) {
-      const fetchShowsData = async () => {
-        setShowsLoading(true); // Set loading state
-        try {
-          const showData = await fetchShows(); // Fetch all shows
-          const uniqueShows = [
-            ...new Set(showData.map((show) => JSON.stringify(show))),
-          ].map((show) => JSON.parse(show));
-          const filteredShows = uniqueShows.filter((show) =>
-            currentGenre.shows.includes(show.id)
-          ); // Filter shows by genre
-          setShows(filteredShows); // Set shows in state
-        } catch (error) {
-          console.error("Error fetching shows:", error);
-        } finally {
-          setShowsLoading(false); // Reset loading state
-        }
-      };
-      fetchShowsData();
+      console.log("setShowsLoading:", setShowsLoading);
+      fetchShowsData(currentGenre, setShows, setShowsLoading.bind(this));
     }
   }, [id, genres, shows]);
 
@@ -49,22 +35,24 @@ function GenreShowsPage() {
 
   console.log(shows);
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="mt-4 font-bold text-3xl">{genre.title}</h1>
-      <p className="mt-2 text-m ">{genre.description}</p>
+    <EpisodePlayerProvider>
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="mt-4 font-bold text-3xl">{genre.title}</h1>
+        <p className="mt-2 text-m ">{genre.description}</p>
 
-      {shows.length > 0 && (
-        <div className=" mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {shows.map((show) => (
-            <ShowCard
-              key={show.id}
-              show={show}
-              genre={genreMapping[show.genreId]}
-            /> // Render ShowCard component for each show
-          ))}
-        </div>
-      )}
-    </div>
+        {shows.length > 0 && (
+          <div className=" mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {shows.map((show) => (
+              <ShowCard
+                key={show.id}
+                show={show}
+                genre={genreMapping[show.genreId]}
+              /> // Render ShowCard component for each show
+            ))}
+          </div>
+        )}
+      </div>
+    </EpisodePlayerProvider>
   );
 }
 

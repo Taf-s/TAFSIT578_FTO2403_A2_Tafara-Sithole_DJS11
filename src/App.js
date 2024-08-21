@@ -12,7 +12,7 @@ import SearchProvider from "./SearchProvider";
 import EpisodePlayer from "./components/EpisodePlayer.js";
 import { GenresProvider } from "./context/GenresContex";
 import { ShowsProvider } from "./context/ShowsContext";
-import { EpisodePlayerProvider } from "./context/EpisoidePlayerContext";
+import { EpisodePlayerProvider } from "./context/EpisodePlayerContext.js";
 import { fetchPreviews } from "./services/fetchpreviews";
 
 function App() {
