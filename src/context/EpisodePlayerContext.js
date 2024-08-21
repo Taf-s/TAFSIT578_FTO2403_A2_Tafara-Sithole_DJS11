@@ -38,8 +38,8 @@ export function EpisodePlayerProvider({ children }) {
   };
 
   useEffect(() => {
-    if (currentEpisode && audioRef.current) {
-      audioRef.current.src = currentEpisode.audioUrl;
+    if (currentEpisode && currentEpisode.file) {
+      audioRef.current.src = currentEpisode.file;
       if (isPlaying) {
         audioRef.current.play();
       }
