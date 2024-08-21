@@ -1,42 +1,69 @@
 // src/pages/GenreShowsPage.js
-import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
-import { fetchGenre } from "../services/fetchgenre";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { fetchShows } from "../services/fetchshow";
+import { GenresContext } from "../context/GenresContex";
 import ShowCard from "../components/ShowCard";
+import { genreMapping } from "../utils/genreUtils";
 
 function GenreShowsPage() {
-  //   const { id } = useParams();
+  const { id } = useParams(); // Get genre ID from the route
+  const { genres, loading } = useContext(GenresContext);
   const [genre, setGenre] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [shows, setShows] = useState([]);
+  const [showsLoading, setShowsLoading] = useState(false);
 
   useEffect(() => {
-    const getGenre = async () => {
-      try {
-        const data = await fetchGenre(); // Fetch genre with basic show info
-        setGenre(data);
-      } catch (error) {
-        console.error("Failed to fetch genre shows:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const currentGenre = genres.find((genre) => genre.id === parseInt(id));
+    setGenre(currentGenre);
 
-    getGenre();
-  }, []);
+    if (!shows.length && currentGenre) {
+      const fetchShowsData = async () => {
+        setShowsLoading(true); // Set loading state
+        try {
+          const showData = await fetchShows(); // Fetch all shows
+          const uniqueShows = [
+            ...new Set(showData.map((show) => JSON.stringify(show))),
+          ].map((show) => JSON.parse(show));
+          const filteredShows = uniqueShows.filter((show) =>
+            currentGenre.shows.includes(show.id)
+          ); // Filter shows by genre
+          setShows(filteredShows); // Set shows in state
+        } catch (error) {
+          console.error("Error fetching shows:", error);
+        } finally {
+          setShowsLoading(false); // Reset loading state
+        }
+      };
+      fetchShowsData();
+    }
+  }, [id, genres, shows]);
 
-  if (loading) {
-    return <div>Loading genre shows...</div>;
+  if (loading || showsLoading) {
+    return <div>Loading genre shows...</div>; // Show loading state
   }
 
+  if (!genre) {
+    return <div>Genre not found</div>; // Handle genre not found
+  }
+
+  console.log(shows);
   return (
     <div>
-      <h1 className="text-3xl font-bold">{genre.title}</h1>
-      <p className="mb-4">{genre.description}</p>
-      <div className="grid grid-cols-2 gap-4">
-        {genre.shows.map((showId) => (
-          <ShowCard key={showId} showId={showId} />
-        ))}
-      </div>
+      <h1>{genre.title}</h1>
+      <p>{genre.description}</p>
+
+      {shows.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {shows.map((show) => (
+            <ShowCard
+              key={show.id}
+              show={show}
+              genre={genreMapping[show.genreId]}
+            /> // Render ShowCard component for each show
+          ))}
+        </div>
+      )}
     </div>
   );
 }

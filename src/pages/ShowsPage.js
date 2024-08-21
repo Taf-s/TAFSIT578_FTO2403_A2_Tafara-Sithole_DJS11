@@ -10,8 +10,6 @@ const ShowsPage = () => {
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [episodes, setEpisodes] = useState([]);
 
-  console.log("SHOW ID", showId);
-
   const show = shows.find((show) => show.id === showId);
 
   const handleSeasonClick = async (season) => {
@@ -28,8 +26,6 @@ const ShowsPage = () => {
       console.error("Error fetching episodes:", err);
     }
   };
-
-  console.log("Filtered Episodes:", episodes);
 
   if (loading) return <div className="text-center py-4">Loading...</div>;
   if (error)

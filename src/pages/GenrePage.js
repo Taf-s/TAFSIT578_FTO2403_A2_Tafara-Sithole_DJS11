@@ -1,5 +1,4 @@
 // src/pages/GenrePage.js
-// import React from "react";
 import { Link } from "react-router-dom";
 import React, { useContext, useState, useEffect } from "react";
 import { GenresContext } from "../context/GenresContex";

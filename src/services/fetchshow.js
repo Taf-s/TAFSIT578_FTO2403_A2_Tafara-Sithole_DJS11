@@ -1,5 +1,5 @@
 import { fetchGenre } from "./fetchgenre";
-export const fetchShows = async () => {
+export async function fetchShows() {
   console.log("fetchAllShows function called");
   try {
     // Step 1: Fetch all genres
@@ -11,15 +11,6 @@ export const fetchShows = async () => {
       (acc, genre) => acc.concat(genre.shows),
       []
     );
-
-    console.log("allShowIds:", allShowIds);
-
-    console.log("Before console.log statement");
-    console.log(
-      `Fetching details for ${allShowIds.length} shows with IDs:`,
-      allShowIds
-    );
-    console.log("After console.log statement");
 
     // Step 3: Fetch details for each show
     const showDetailsPromises = allShowIds.map(async (id) => {
@@ -46,4 +37,4 @@ export const fetchShows = async () => {
     console.error(`Failed to fetch all shows:`, error);
     return [];
   }
-};
+}

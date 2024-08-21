@@ -15,7 +15,7 @@ export async function fetchGenre() {
       genres.push(data);
     } catch (error) {
       console.error(`Error fetching genre with ID ${id}:`, error);
-      // You can choose to continue or break the loop depending on the error handling strategy.
+      break;
     }
   }
 
