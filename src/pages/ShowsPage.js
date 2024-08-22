@@ -34,7 +34,60 @@ const ShowsPage = () => {
     setCurrentEpisode(episode);
   };
 
-  if (loading) return <div className="text-center py-4">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="max-w-5xl mx-auto p-4">
+        <div className="mb-6 relative">
+          <div className="h-96 bg-gray-300 rounded-lg animate-pulse"></div>
+          <div className="absolute top-0 left-0 right-0 p-4 text-customYellow bg-black bg-opacity-50 rounded-md flex flex-col justify-center items-left h-1/5 animate-pulse">
+            <div className="h-8 bg-gray-300 rounded-lg animate-pulse"></div>
+            <div className="h-4 bg-gray-300 rounded-lg animate-pulse"></div>
+            <div className="h-4 bg-gray-300 rounded-lg animate-pulse"></div>
+          </div>
+        </div>
+
+        <div className="p-4 bg-customBlack rounded-lg shadow-md mt-4 animate-pulse">
+          <div className="h-8 bg-gray-300 rounded-lg animate-pulse"></div>
+        </div>
+
+        <div className="mb-6">
+          <Carousel showArrows={true} infinite={false}>
+            {Array(5)
+              .fill(null)
+              .map((_, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-72 h-72 bg-gray-200 rounded-lg shadow-md flex flex-col items-center justify-center text-sm font-medium hover:bg-gray-300 cursor-pointer relative animate-pulse"
+                >
+                  <div className="h-72 bg-gray-300 rounded-lg animate-pulse"></div>
+                  <div className="absolute top-0 left-0 right-0 p-4 text-customYellow bg-black bg-opacity-50 rounded-md flex flex-col justify-center items-left h-1/5 animate-pulse">
+                    <div className="h-8 bg-gray-300 rounded-lg animate-pulse"></div>
+                  </div>
+                </div>
+              ))}
+          </Carousel>
+        </div>
+
+        <div>
+          <div className="h-8 bg-gray-300 rounded-lg animate-pulse"></div>
+          <ol className="list-decimal list-inside">
+            {Array(5)
+              .fill(null)
+              .map((_, index) => (
+                <li
+                  key={index}
+                  className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue animate-pulse"
+                >
+                  <div className="h-8 bg-gray-300 rounded-lg animate-pulse"></div>
+                  <div className="h-4 bg-gray-300 rounded-lg animate-pulse"></div>
+                </li>
+              ))}
+          </ol>
+        </div>
+      </div>
+    );
+  }
+
   if (error)
     return (
       <div className="text-center py-4 text-red-600">
