@@ -26,7 +26,32 @@ function GenreShowsPage() {
   }, [id, genres, shows]);
 
   if (loading || showsLoading) {
-    return <div>Loading genre shows...</div>; // Show loading state
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="mt-4 font-bold text-3xl text-white animate-pulse">
+          <div className="h-8 w-1/4  bg-gray-300 rounded-lg"></div>
+        </div>
+        <div className="mt-2 text-m text-white animate-pulse">
+          <div className="h-12 bg-gray-300 rounded-lg"></div>
+        </div>
+
+        <div className="mt-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array(8)
+            .fill(null)
+            .map((_, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-lg p-4 animate-pulse"
+              >
+                <div className="h-48 bg-gray-300 rounded-lg"></div>
+                <div className="mt-4 text-lg font-bold text-gray-300">
+                  <div className="h-4 bg-gray-300 rounded-lg"></div>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    );
   }
 
   if (!genre) {
