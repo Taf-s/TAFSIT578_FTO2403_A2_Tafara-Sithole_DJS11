@@ -6,6 +6,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEpisodePlayer } from "../context/EpisodePlayerContext";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { FavoriteEpisodesContext } from "../context/FavoriteEpisodesContext";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const ShowsPage = () => {
   let { showId } = useParams();
@@ -13,6 +15,13 @@ const ShowsPage = () => {
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const { setCurrentEpisode } = useEpisodePlayer();
+
+  // Context Debugging
+  const favoriteContext = useContext(FavoriteEpisodesContext);
+  console.log(favoriteContext); // Check if this logs the expected values
+
+  const { updateFavoriteEpisode, removeFavoriteEpisode, favoriteEpisodes } =
+    favoriteContext || {};
 
   const show = shows.find((show) => show.id === showId);
 
@@ -34,6 +43,14 @@ const ShowsPage = () => {
   const handleEpisodeClick = (episode) => {
     console.log("handleEpisodeClick called with episode:", episode);
     setCurrentEpisode(episode);
+  };
+
+  const handleAddFavoriteEpisode = (episodeId) => {
+    updateFavoriteEpisode(episodeId);
+  };
+
+  const handleRemoveFavoriteEpisode = (episodeId) => {
+    removeFavoriteEpisode(episodeId);
   };
 
   if (loading) {
@@ -89,6 +106,10 @@ const ShowsPage = () => {
       </div>
     );
   }
+
+  console.log("show.genres:", show.genres);
+  console.log("show.seasons:", show.seasons);
+  console.log("episodes:", episodes);
 
   if (error)
     return (
@@ -156,13 +177,32 @@ const ShowsPage = () => {
             {episodes.map((episode) => (
               <li
                 key={episode.id}
-                className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue"
+                className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue flex flex-col"
                 onClick={() => handleEpisodeClick(episode)}
               >
-                <span className="text-2xl text-white leading-none">
+                <span className="text-2xl text-white leading-none mb-2">
                   {episode.title}
                 </span>
-                <div className="text-gray-400">{episode.description}</div>
+                <div className="text-gray-400 flex items-center justify-between">
+                  {episode.description}
+                  <button
+                    className="ml-2"
+                    onClick={() => {
+                      // Check if the episode is already a favorite
+                      if (favoriteEpisodes[episode.id]) {
+                        handleRemoveFavoriteEpisode(episode.id);
+                      } else {
+                        handleAddFavoriteEpisode(episode);
+                      }
+                    }}
+                  >
+                    {favoriteEpisodes[episode.id] ? (
+                      <FaHeart className="text-lg text-customRed" />
+                    ) : (
+                      <FaRegHeart className="text-lg text-gray-400" />
+                    )}
+                  </button>
+                </div>
               </li>
             ))}
           </ol>
