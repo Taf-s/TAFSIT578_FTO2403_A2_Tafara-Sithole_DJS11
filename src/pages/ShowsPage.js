@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEpisodePlayer } from "../context/EpisodePlayerContext";
+import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 const ShowsPage = () => {
   let { showId } = useParams();
@@ -99,6 +101,9 @@ const ShowsPage = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
+      <Link to="/" className="text-xl text-white font-bold mb-4">
+        <FaArrowLeft />
+      </Link>
       <div className="mb-6 relative">
         <img
           src={show.image}
