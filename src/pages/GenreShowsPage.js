@@ -7,6 +7,8 @@ import { GenresContext } from "../context/GenresContex";
 import ShowCard from "../components/ShowCard";
 import { genreMapping } from "../utils/genreUtils";
 import { EpisodePlayerProvider } from "../context/EpisodePlayerContext";
+import { Link } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 
 function GenreShowsPage() {
   const { id } = useParams(); // Get genre ID from the route
@@ -62,6 +64,10 @@ function GenreShowsPage() {
   return (
     <EpisodePlayerProvider>
       <div className="container mx-auto px-4 py-8">
+        <Link to="/genre" className="text-lg text-white font-bold mb-4">
+          <FaArrowLeft />
+        </Link>
+
         <h1 className="mt-4 font-bold text-3xl text-white">{genre.title}</h1>
         <p className="mt-2 text-m text-white ">{genre.description}</p>
 

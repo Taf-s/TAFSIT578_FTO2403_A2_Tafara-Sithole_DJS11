@@ -27,7 +27,7 @@ function EpisodePlayer() {
               className="w-12 h-12 object-cover rounded"
             />
             <div className="flex flex-col">
-              <h2 className="text-lg font-bold truncate">
+              <h2 className="text-base text-wrap font-bold truncate">
                 {currentEpisode.title}
               </h2>
               <p className="text-sm text-gray-400 truncate">
