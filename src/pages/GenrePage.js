@@ -12,12 +12,27 @@ function GenrePage() {
     fetchShows().then((data) => setShows(data));
   }, []);
 
-  if (loading) {
-    return <div>Loading genres...</div>;
-  }
-
-  if (shows.length === 0) {
-    return <div>Loading shows...</div>;
+  if (loading || shows.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Array(6)
+            .fill(null)
+            .map((_, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-lg rounded-lg overflow-hidden relative "
+              >
+                <div className=" w-full h-96 animate-pulse bg-gray-300 rounded-lg"></div>
+                <div className="absolute bottom-3 left-3 right-3 p-4 bg-gray-200 rounded-md flex flex-col justify-center items-center h-1/5">
+                  <div className="bg-gray-200 h-4"></div>
+                  <div className="bg-gray-200 h-2 mt-2"></div>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    );
   }
 
   return (
