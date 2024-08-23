@@ -1,3 +1,5 @@
+// Favorites Page
+
 import React, { useContext } from "react";
 import { FaTrash } from "react-icons/fa";
 import { FavoriteEpisodesContext } from "../context/FavoriteEpisodesContext";
@@ -9,7 +11,7 @@ function FavoritesPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-20 mt-20  text-white ">
+      <h1 className="text-2xl font-bold mb-20 mt-20 text-white">
         Favorite Episodes
       </h1>
       {favoriteEpisodes.length === 0 ? (
@@ -17,9 +19,22 @@ function FavoritesPage() {
       ) : (
         <ul>
           {favoriteEpisodes.map((show) => (
-            <div key={show.showId}>
+            <div key={show.showId} className="mb-8">
+              <h2 className="text-xl font-bold text-white mb-4">
+                {show.title}
+              </h2>
               {show.seasons.map((season) => (
-                <div key={season.number}>
+                <div key={season.number} className="mb-6">
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={season.image}
+                      alt={`Season ${season.number}`}
+                      className="w-16 h-16 rounded mr-4"
+                    />
+                    <h3 className="text-lg text-white">
+                      Season {season.number}
+                    </h3>
+                  </div>
                   {season.episodes.map((episode) => (
                     <li
                       key={episode.id}
@@ -32,7 +47,8 @@ function FavoritesPage() {
                         <div className="flex-1">
                           <p className="mb-2">{episode.description}</p>
                           <p className="text-gray-400">
-                            {show.showTitle} - Season {season.number}
+                            Episode {episode.number} - Added on{" "}
+                            {new Date(episode.timestamp).toLocaleString()}
                           </p>
                         </div>
                         <div className="favorite-button-container">

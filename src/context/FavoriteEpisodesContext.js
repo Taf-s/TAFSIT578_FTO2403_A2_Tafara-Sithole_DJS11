@@ -1,3 +1,5 @@
+// Favorite Episodes Context
+
 import React, { createContext, useState, useEffect } from "react";
 
 export const FavoriteEpisodesContext = createContext();
@@ -38,7 +40,8 @@ export function FavoriteEpisodesProvider({ children }) {
 
   console.log("favoriteEpisodes", favoriteEpisodes);
 
-  const addFavoriteEpisode = (showId, seasonNumber, episode) => {
+  const addFavoriteEpisode = (showId, seasonNumber, episode, seasonImage) => {
+    const timestamp = new Date().toLocaleString(); // Capture the current timestamp
     setFavoriteEpisodes((prevFavorites) => {
       const updatedFavorites = Array.isArray(prevFavorites)
         ? [...prevFavorites]
@@ -57,14 +60,16 @@ export function FavoriteEpisodesProvider({ children }) {
             seasonIndex
           ].episodes.some((ep) => ep.id === episode.id);
           if (!episodeExists) {
-            updatedFavorites[showIndex].seasons[seasonIndex].episodes.push(
-              episode
-            );
+            updatedFavorites[showIndex].seasons[seasonIndex].episodes.push({
+              ...episode,
+              timestamp,
+            });
           }
         } else {
           updatedFavorites[showIndex].seasons.push({
             number: seasonNumber,
-            episodes: [episode],
+            image: seasonImage,
+            episodes: [{ ...episode, timestamp }],
           });
         }
       } else {
@@ -74,7 +79,8 @@ export function FavoriteEpisodesProvider({ children }) {
           seasons: [
             {
               number: seasonNumber,
-              episodes: [episode],
+              image: seasonImage,
+              episodes: [{ ...episode, timestamp }],
             },
           ],
         });
