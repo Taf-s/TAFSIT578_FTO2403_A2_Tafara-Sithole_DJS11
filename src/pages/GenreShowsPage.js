@@ -30,7 +30,7 @@ function GenreShowsPage() {
   if (loading || showsLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="mt-4 font-bold text-3xl text-white animate-pulse">
+        <div className="mt-20 font-bold text-3xl text-white animate-pulse">
           <div className="h-8 w-1/4  bg-gray-300 rounded-lg"></div>
         </div>
         <div className="mt-2 text-m text-white animate-pulse">
@@ -67,7 +67,7 @@ function GenreShowsPage() {
         <Link to="/genre" className="text-xl text-white font-bold mb-4">
           <FaArrowLeft />
         </Link>
-        <h1 className="mt-4 font-bold text-3xl text-white">{genre.title}</h1>
+        <h1 className="mt-20 font-bold text-3xl text-white">{genre.title}</h1>
         <p className="mt-2 text-m text-white ">{genre.description}</p>
 
         {shows.length > 0 && (

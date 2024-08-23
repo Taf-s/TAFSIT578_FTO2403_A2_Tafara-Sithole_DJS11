@@ -6,11 +6,11 @@ export const sortShows = (shows, sortBy) => {
       return [...shows].sort((a, b) => b.title.localeCompare(a.title));
     case "date-asc":
       return [...shows].sort(
-        (a, b) => new Date(a.updated) - new Date(b.updated)
+        (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
       );
     case "date-desc":
       return [...shows].sort(
-        (a, b) => new Date(b.updated) - new Date(a.updated)
+        (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
       );
     default:
       return shows;

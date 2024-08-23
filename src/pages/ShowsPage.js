@@ -20,7 +20,7 @@ const ShowsPage = () => {
   const favoriteContext = useContext(FavoriteEpisodesContext);
   console.log(favoriteContext); // Check if this logs the expected values
 
-  const { updateFavoriteEpisode, removeFavoriteEpisode, favoriteEpisodes } =
+  const { addFavoriteEpisode, removeFavoriteEpisode, isFavoriteEpisode } =
     favoriteContext || {};
 
   const show = shows.find((show) => show.id === showId);
@@ -44,13 +44,13 @@ const ShowsPage = () => {
     console.log("handleEpisodeClick called with episode:", episode);
     setCurrentEpisode(episode);
   };
-
-  const handleAddFavoriteEpisode = (episodeId) => {
-    updateFavoriteEpisode(episodeId);
-  };
-
-  const handleRemoveFavoriteEpisode = (episodeId) => {
-    removeFavoriteEpisode(episodeId);
+  const handleFavoriteClick = (e, episode) => {
+    e.stopPropagation(); // Prevent triggering the episode click
+    if (isFavoriteEpisode(showId, selectedSeason, episode.id)) {
+      removeFavoriteEpisode(showId, selectedSeason, episode.id);
+    } else {
+      addFavoriteEpisode(showId, selectedSeason, episode);
+    }
   };
 
   if (loading) {
@@ -72,8 +72,8 @@ const ShowsPage = () => {
         <div className="mb-6">
           <Carousel showArrows={true} infinite={false}>
             {Array(5)
-              .fill(null)
-              .map((_, index) => (
+              ?.fill(null)
+              ?.map((_, index) => (
                 <div
                   key={index}
                   className="flex-shrink-0 w-72 h-72 bg-gray-200 rounded-lg shadow-md flex flex-col items-center justify-center text-sm font-medium hover:bg-gray-300 cursor-pointer relative animate-pulse"
@@ -91,8 +91,8 @@ const ShowsPage = () => {
           <div className="h-8 bg-gray-300 rounded-lg animate-pulse"></div>
           <ol className="list-decimal list-inside">
             {Array(5)
-              .fill(null)
-              .map((_, index) => (
+              ?.fill(null)
+              ?.map((_, index) => (
                 <li
                   key={index}
                   className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue animate-pulse"
@@ -135,7 +135,7 @@ const ShowsPage = () => {
           <h1 className="text-3xl font-bold mb-2">{show.title}</h1>
           <p className="text-m">{show.seasons.length} Seasons</p>
           <p className="text-m">
-            {show.genres.map((genre, index) => (
+            {show.genres?.map((genre, index) => (
               <span key={genre} className="mr-2">
                 {genre}
               </span>
@@ -149,7 +149,7 @@ const ShowsPage = () => {
 
       <div className="mb-6">
         <Carousel showArrows={true} infinite={false}>
-          {show.seasons.map((season) => (
+          {show.seasons?.map((season) => (
             <div
               key={season.id}
               onClick={() => handleSeasonClick(season)}
@@ -174,7 +174,7 @@ const ShowsPage = () => {
             Season {selectedSeason}: {episodes.length} Episodes
           </h2>
           <ol className="list-decimal list-inside">
-            {episodes.map((episode) => (
+            {episodes?.map((episode) => (
               <li
                 key={episode.id}
                 className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue flex flex-col"
@@ -188,16 +188,9 @@ const ShowsPage = () => {
                   <div className="favorite-button-container">
                     <button
                       className="ml-2"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (favoriteEpisodes[episode.id]) {
-                          removeFavoriteEpisode(episode.id);
-                        } else {
-                          updateFavoriteEpisode(episode);
-                        }
-                      }}
+                      onClick={(e) => handleFavoriteClick(e, episode)}
                     >
-                      {favoriteEpisodes[episode.id] ? (
+                      {isFavoriteEpisode(showId, selectedSeason, episode.id) ? (
                         <FaHeart className="text-lg text-customRed" />
                       ) : (
                         <FaRegHeart className="text-lg text-gray-400" />

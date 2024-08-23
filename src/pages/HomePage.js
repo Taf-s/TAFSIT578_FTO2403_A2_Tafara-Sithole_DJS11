@@ -16,7 +16,7 @@ function HomePage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 mt-20">
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
