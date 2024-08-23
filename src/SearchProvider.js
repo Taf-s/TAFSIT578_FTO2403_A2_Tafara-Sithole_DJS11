@@ -26,7 +26,7 @@ const SearchProvider = ({ shows, children }) => {
 
   return (
     <SearchContext.Provider
-      value={{ searchQuery, handleSearch, filteredShows }}
+      value={{ searchQuery, handleSearch, filteredShows, shows }}
     >
       {children}
     </SearchContext.Provider>

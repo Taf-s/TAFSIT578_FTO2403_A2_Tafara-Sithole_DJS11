@@ -1,18 +1,30 @@
-export const sortShows = (shows, sortBy) => {
-  switch (sortBy) {
+import sortBy from "lodash/sortBy";
+
+const sortShows = (shows, sortByOption) => {
+  if (!Array.isArray(shows)) return shows;
+
+  let sortedShows;
+
+  switch (sortByOption) {
     case "title-asc":
-      return [...shows].sort((a, b) => a.title.localeCompare(b.title));
+      sortedShows = sortBy(shows, (show) => show.title.trim().toLowerCase());
+      break;
     case "title-desc":
-      return [...shows].sort((a, b) => b.title.localeCompare(a.title));
+      sortedShows = sortBy(shows, (show) =>
+        show.title.trim().toLowerCase()
+      ).reverse();
+      break;
     case "date-asc":
-      return [...shows].sort(
-        (a, b) => Date.parse(a.updated) - Date.parse(b.updated)
-      );
+      sortedShows = sortBy(shows, (show) => new Date(show.updated));
+      break;
     case "date-desc":
-      return [...shows].sort(
-        (a, b) => Date.parse(b.updated) - Date.parse(a.updated)
-      );
+      sortedShows = sortBy(shows, (show) => new Date(show.updated)).reverse();
+      break;
     default:
-      return shows;
+      sortedShows = shows;
   }
+
+  return sortedShows;
 };
+
+export default sortShows;

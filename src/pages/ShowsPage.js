@@ -46,10 +46,20 @@ const ShowsPage = () => {
   };
   const handleFavoriteClick = (e, episode) => {
     e.stopPropagation(); // Prevent triggering the episode click
+
+    // Check if the episode is already a favorite
     if (isFavoriteEpisode(showId, selectedSeason, episode.id)) {
       removeFavoriteEpisode(showId, selectedSeason, episode.id);
     } else {
-      addFavoriteEpisode(showId, selectedSeason, episode);
+      // Add the favorite episode with additional data
+      addFavoriteEpisode(
+        showId, // Pass the show ID
+        show.title, // Pass the show title
+        selectedSeason.season, // Pass the season number
+        selectedSeason.title, // Pass the season title
+        selectedSeason.image, // Pass the season image
+        episode // Pass the episode details
+      );
     }
   };
 

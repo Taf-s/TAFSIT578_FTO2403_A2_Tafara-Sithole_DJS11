@@ -40,7 +40,14 @@ export function FavoriteEpisodesProvider({ children }) {
 
   console.log("favoriteEpisodes", favoriteEpisodes);
 
-  const addFavoriteEpisode = (showId, seasonNumber, episode, seasonImage) => {
+  const addFavoriteEpisode = (
+    showId,
+    showTitle,
+    seasonNumber,
+    seasonTitle,
+    seasonImage,
+    episode
+  ) => {
     const timestamp = new Date().toLocaleString(); // Capture the current timestamp
     setFavoriteEpisodes((prevFavorites) => {
       const updatedFavorites = Array.isArray(prevFavorites)
@@ -75,7 +82,8 @@ export function FavoriteEpisodesProvider({ children }) {
       } else {
         updatedFavorites.push({
           showId,
-          showTitle: episode.title,
+          showTitle,
+          // episode.title,
           seasons: [
             {
               number: seasonNumber,
@@ -117,21 +125,6 @@ export function FavoriteEpisodesProvider({ children }) {
     });
   };
 
-  // const isFavoriteEpisode = (showId, seasonNumber, episodeId) => {
-  //   if (Array.isArray(favoriteEpisodes)) {
-  //     return favoriteEpisodes.find(
-  //       (item) =>
-  //         item.showId === showId &&
-  //         item.seasons.find(
-  //           (season) =>
-  //             season.number === seasonNumber &&
-  //             season.episodes.find((episode) => episode.id === episodeId)
-  //         )
-  //     );
-  //   } else {
-  //     return false;
-  //   }
-  // };
   function isFavoriteEpisode(showId, seasonNumber, episodeNumber) {
     // Step 1: Find the show with the given showId
     const show = favoriteEpisodes.find((show) => show.showId === showId);
