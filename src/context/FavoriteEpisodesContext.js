@@ -14,17 +14,17 @@ const FavoriteEpisodesProvider = ({ children }) => {
   }, [favoriteEpisodes]);
 
   const updateFavoriteEpisode = (episode) => {
-    setFavoriteEpisodes((prevEpisodes) => ({
-      ...prevEpisodes,
+    setFavoriteEpisodes((prevFavorites) => ({
+      ...prevFavorites,
       [episode.id]: episode,
     }));
   };
 
   const removeFavoriteEpisode = (episodeId) => {
-    setFavoriteEpisodes((prevEpisodes) => {
-      const newEpisodes = { ...prevEpisodes };
-      delete newEpisodes[episodeId];
-      return newEpisodes;
+    setFavoriteEpisodes((prevFavorites) => {
+      const updatedFavorites = { ...prevFavorites };
+      delete updatedFavorites[episodeId];
+      return updatedFavorites;
     });
   };
 

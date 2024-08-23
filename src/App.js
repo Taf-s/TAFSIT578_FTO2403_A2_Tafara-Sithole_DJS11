@@ -35,28 +35,30 @@ function App() {
 
   return (
     <Router>
-      <EpisodePlayerProvider>
-        <ShowsProvider>
-          <GenresProvider>
-            <FavoriteEpisodesProvider>
+      <ShowsProvider>
+        <GenresProvider>
+          <FavoriteEpisodesProvider>
+            <EpisodePlayerProvider>
               <SearchProvider shows={shows}>
-                <Navbar />
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/genre" element={<GenrePage />} />
-                  <Route path="/show/:showId" element={<ShowsPage />} />
-                  <Route
-                    path="/genre/:id"
-                    element={<GenreShowsPage shows={shows} />}
-                  />
-                  <Route path="/favourites" element={<FavouritesPage />} />
-                </Routes>
-                <EpisodePlayer />
+                <div>
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/genre" element={<GenrePage />} />
+                    <Route path="/show/:showId" element={<ShowsPage />} />
+                    <Route
+                      path="/genre/:id"
+                      element={<GenreShowsPage shows={shows} />}
+                    />
+                    <Route path="/favourites" element={<FavouritesPage />} />
+                  </Routes>
+                  <EpisodePlayer />
+                </div>
               </SearchProvider>
-            </FavoriteEpisodesProvider>
-          </GenresProvider>
-        </ShowsProvider>
-      </EpisodePlayerProvider>
+            </EpisodePlayerProvider>
+          </FavoriteEpisodesProvider>
+        </GenresProvider>
+      </ShowsProvider>
     </Router>
   );
 }

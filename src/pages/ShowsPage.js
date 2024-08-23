@@ -185,23 +185,25 @@ const ShowsPage = () => {
                 </span>
                 <div className="text-gray-400 flex items-center justify-between">
                   {episode.description}
-                  <button
-                    className="ml-2"
-                    onClick={() => {
-                      // Check if the episode is already a favorite
-                      if (favoriteEpisodes[episode.id]) {
-                        handleRemoveFavoriteEpisode(episode.id);
-                      } else {
-                        handleAddFavoriteEpisode(episode);
-                      }
-                    }}
-                  >
-                    {favoriteEpisodes[episode.id] ? (
-                      <FaHeart className="text-lg text-customRed" />
-                    ) : (
-                      <FaRegHeart className="text-lg text-gray-400" />
-                    )}
-                  </button>
+                  <div className="favorite-button-container">
+                    <button
+                      className="ml-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (favoriteEpisodes[episode.id]) {
+                          removeFavoriteEpisode(episode.id);
+                        } else {
+                          updateFavoriteEpisode(episode);
+                        }
+                      }}
+                    >
+                      {favoriteEpisodes[episode.id] ? (
+                        <FaHeart className="text-lg text-customRed" />
+                      ) : (
+                        <FaRegHeart className="text-lg text-gray-400" />
+                      )}
+                    </button>
+                  </div>
                 </div>
               </li>
             ))}

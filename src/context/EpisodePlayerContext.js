@@ -23,10 +23,12 @@ export function EpisodePlayerProvider({ children }) {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    fetchShowsData().then((data) => {
-      setShows(data);
-    });
+    fetchShowsData(setShows, () => {});
   }, []);
+
+  useEffect(() => {
+    console.log("Shows:", shows);
+  }, [shows]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -46,6 +48,7 @@ export function EpisodePlayerProvider({ children }) {
       episodeIndex >= 0 &&
       episodeIndex < shows.length
     ) {
+      console.log("Updating current episode");
       setCurrentEpisode(shows[episodeIndex]);
     }
   }, [shows, episodeIndex]);
@@ -70,21 +73,32 @@ export function EpisodePlayerProvider({ children }) {
       setIsPlaying(!isPlaying);
     }
   };
-
   const previousEpisode = () => {
-    if (episodeIndex > 0) {
-      setEpisodeIndex(episodeIndex - 1);
-    } else {
-      setEpisodeIndex(shows.length - 1);
+    console.log("Previous episode clicked");
+    console.log("Current episode index:", episodeIndex);
+    console.log("Shows length:", shows?.length);
+    if (shows && shows.length > 0) {
+      if (episodeIndex > 0) {
+        setEpisodeIndex(episodeIndex - 1);
+      } else {
+        setEpisodeIndex(shows.length - 1);
+      }
     }
+    console.log("New episode index:", episodeIndex);
   };
 
   const nextEpisode = () => {
-    if (episodeIndex < shows.length - 1) {
-      setEpisodeIndex(episodeIndex + 1);
-    } else {
-      setEpisodeIndex(0);
+    console.log("Next episode clicked");
+    console.log("Current episode index:", episodeIndex);
+    console.log("Shows length:", shows?.length);
+    if (shows && shows.length > 0) {
+      if (episodeIndex < shows.length - 1) {
+        setEpisodeIndex(episodeIndex + 1);
+      } else {
+        setEpisodeIndex(0);
+      }
     }
+    console.log("New episode index:", episodeIndex);
   };
 
   const formatTime = (time) => {

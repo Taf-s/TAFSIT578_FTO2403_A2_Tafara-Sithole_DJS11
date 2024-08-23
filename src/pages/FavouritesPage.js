@@ -1,4 +1,3 @@
-// FavoritesPage.js
 import React, { useContext } from "react";
 import { FavoriteEpisodesContext } from "../context/FavoriteEpisodesContext";
 
@@ -9,9 +8,9 @@ const FavoritesPage = () => {
 
   return (
     <div>
-      <h1>Favorites</h1>
+      <h1 className="text-3xl text-customRed">Favorites</h1>
       <ul>
-        {favoriteEpisodes?.list?.map((episodeId) => (
+        {Object.keys(favoriteEpisodes).map((episodeId) => (
           <li key={episodeId}>
             <h2>{favoriteEpisodes[episodeId].title}</h2>
             <p>{favoriteEpisodes[episodeId].description}</p>
