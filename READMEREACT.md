@@ -60,6 +60,25 @@ src/
 ├── index.js # Entry point for React
 └── index.css # Tailwind CSS imports
 
+## Setup
+
+### 1. Clone the repository
+
+git clone https://github.com/your-username/podcast-app.git
+cd podcast-app
+
+### 2. Install Dependencies
+
+npm install
+
+### 3. Setup Tailwind CSS
+
+Ensure Tailwind CSS is installed and configured. The necessary directives have been added to index.css.
+
+### 4. Start the development server
+
+npm start
+
 ## Components
 
 ### Navbar
