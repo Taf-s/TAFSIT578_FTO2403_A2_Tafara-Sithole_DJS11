@@ -3,6 +3,11 @@ import { searchShows } from "./utils/search";
 
 const SearchContext = createContext();
 
+/**
+ * Hook to access the search context.
+ *
+ * @return {object} The search context object containing searchQuery, handleSearch, filteredShows, and shows.
+ */
 export const useSearch = () => {
   return useContext(SearchContext);
 };

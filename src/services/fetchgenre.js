@@ -1,3 +1,9 @@
+/**
+ * Fetches and returns an array of genre objects from the podcast API.
+ *
+ * @return {Array<Object>} An array of genre objects, each containing id, title, and description.
+ */
+
 export async function fetchGenre() {
   const genres = [];
   console.log(genres);

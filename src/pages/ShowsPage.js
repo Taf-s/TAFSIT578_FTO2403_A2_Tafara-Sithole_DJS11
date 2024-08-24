@@ -40,10 +40,25 @@ const ShowsPage = () => {
     }
   };
 
+  /**
+   * This function is called when an episode is clicked.
+   * It takes an episode object as an argument.
+   * It logs the episode object to the console for debugging purposes.
+   * It then calls the setCurrentEpisode function from the EpisodePlayerContext
+   * and passes the episode object to it.
+   * This function is used to update the current episode in the EpisodePlayerContext
+   * when a user clicks on an episode.
+   */
   const handleEpisodeClick = (episode) => {
+    console.log(
+      "handleEpisodeClick called with episode:",
+      episode,
+      "This function is called when an episode is clicked."
+    );
     console.log("handleEpisodeClick called with episode:", episode);
     setCurrentEpisode(episode);
   };
+
   const handleFavoriteClick = (e, episode) => {
     e.stopPropagation(); // Prevent triggering the episode click
 

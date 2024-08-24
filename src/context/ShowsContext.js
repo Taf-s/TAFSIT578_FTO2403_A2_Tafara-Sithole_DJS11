@@ -3,10 +3,21 @@ import { fetchShows } from "../services/fetchshow";
 
 export const ShowsContext = createContext();
 
+/**
+ * A React context provider for managing shows data.
+ *
+ * @param {object} children - The child components to be wrapped with the shows context.
+ * @return {JSX.Element} The JSX element containing the shows context provider.
+ */
 export const ShowsProvider = ({ children }) => {
   const [shows, setShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  /**
+   * Fetches and sets the shows data.
+   *
+   * @return {Promise<void>} Resolves when the shows data has been fetched and set.
+   */
   useEffect(() => {
     const getShows = async () => {
       try {

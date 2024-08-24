@@ -1,3 +1,8 @@
+/**
+ * Fetches preview data from the podcast API.
+ *
+ * @return {object} Preview data in JSON format
+ */
 export async function fetchPreviews() {
   try {
     const response = await fetch("https://podcast-api.netlify.app");

@@ -5,13 +5,21 @@ import { GenresContext } from "../context/GenresContex";
 import { fetchShows } from "../services/fetchshow";
 
 function GenrePage() {
+  // Get the list of genres and a boolean indicating if the data is loading
+  // from the GenresContext
   const { genres, loading } = useContext(GenresContext);
+
+  // Initialize a state variable to hold the list of shows
   const [shows, setShows] = useState([]);
 
+  // When the component mounts, fetch the list of shows and set it to the
+  // state variable
   useEffect(() => {
     fetchShows().then((data) => setShows(data));
   }, []);
 
+  // If the data is loading or the list of shows is empty, display a loading
+  // animation
   if (loading || shows.length === 0) {
     return (
       <div className="container mx-auto px-4 py-8">
@@ -35,15 +43,23 @@ function GenrePage() {
     );
   }
 
+  // Otherwise, display the list of genres, with each genre containing a
+  // random show from the list of shows
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-20">
         {genres.map((genre) => {
+          // Get a random show ID from the list of shows for the current genre
           const randomShowId =
             genre.shows[Math.floor(Math.random() * genre.shows.length)];
+
+          // Find the show with the random show ID in the list of shows
           const randomShow = shows.find((show) => show.id === randomShowId);
+
+          // Get the image URL for the random show
           const showImage = randomShow.image || null;
 
+          // Return a div for each genre with a link to the genre page
           return (
             <div
               key={genre.id}

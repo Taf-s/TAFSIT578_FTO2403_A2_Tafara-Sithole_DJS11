@@ -10,6 +10,13 @@ import { EpisodePlayerProvider } from "../context/EpisodePlayerContext";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
+/**
+ * A React functional component that renders a page for a specific genre of shows.
+ * It fetches the genre data and shows associated with it, and displays a loading animation or an error message if necessary.
+ *
+ * @return {JSX.Element} The JSX element representing the genre shows page.
+ */
+
 function GenreShowsPage() {
   const { id } = useParams(); // Get genre ID from the route
   const { genres, loading } = useContext(GenresContext);

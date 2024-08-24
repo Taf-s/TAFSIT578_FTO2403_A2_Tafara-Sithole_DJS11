@@ -21,7 +21,7 @@ function FavoritesPage() {
           {favoriteEpisodes.map((show) => (
             <div key={show.showId} className="mb-8">
               <h2 className="text-xl font-bold text-white mb-4">
-                {show.title}
+                {show.showTitle}
               </h2>
               {show.seasons.map((season) => (
                 <div key={season.number} className="mb-6">

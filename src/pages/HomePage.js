@@ -5,27 +5,57 @@ import { SearchContext } from "../SearchProvider";
 import ShowCard from "../components/ShowCard";
 import sortShows from "../utils/sortShows";
 
+/**
+ * A functional component representing the Home Page of the application.
+ * It displays a carousel of shows, a dropdown to sort shows, and a grid of shows.
+ * The shows are sorted based on the selected option in the dropdown.
+ *
+ * @return {JSX.Element} The JSX element representing the Home Page.
+ */
 function HomePage() {
+  /**
+   * Get the shows from the SearchContext.
+   */
   const { shows, filteredShows } = useContext(SearchContext);
 
+  /**
+   * If the user has searched for something, use the filtered shows.
+   * Otherwise use the full list of shows.
+   */
   // Always start with shows sorted alphabetically (A-Z)
   const showsToSort = filteredShows || shows;
 
+  /**
+   * The state that stores the sorted shows.
+   */
   const [sortedShows, setSortedShows] = useState([]);
+
+  /**
+   * The state that stores the selected sort option.
+   */
   const [sortBy, setSortBy] = useState("title-asc");
 
+  /**
+   * When the component mounts or the shows change, default to alphabetical order (A-Z).
+   */
   useEffect(() => {
     // Default to alphabetical order (A-Z)
     const initialSortedShows = sortShows(showsToSort, "title-asc");
     setSortedShows(initialSortedShows);
   }, [showsToSort]);
 
+  /**
+   * When the user selects a new sorting option, re-sort the shows.
+   */
   useEffect(() => {
     // Apply selected sorting
     const sorted = sortShows(showsToSort, sortBy);
     setSortedShows(sorted);
   }, [showsToSort, sortBy]);
 
+  /**
+   * Get the first 5 shows to display in the carousel.
+   */
   const carouselShows = sortedShows.slice(0, 5);
 
   return (
@@ -49,9 +79,11 @@ function HomePage() {
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
         >
+          {/* Map the first 5 shows to SwiperSlide components */}
           {carouselShows.map((show) => (
             <SwiperSlide key={show.id} className="w-full">
               <div className="p-2">
+                {/* Render a ShowCard for each show */}
                 <ShowCard show={show} className="h-40" />
               </div>
             </SwiperSlide>
@@ -66,6 +98,7 @@ function HomePage() {
             onChange={(e) => setSortBy(e.target.value)}
             className="bg-customBackground hover:bg-customRed rounded-md p-2 mb-4"
           >
+            {/* Options for the dropdown */}
             <option value="title-asc">A-Z</option>
             <option value="title-desc">Z-A</option>
             <option value="date-asc">Oldest</option>
@@ -75,6 +108,7 @@ function HomePage() {
 
         {/* Grid of Shows */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {/* Map the sorted shows to ShowCard components */}
           {sortedShows.map((show) => (
             <ShowCard key={show.id} show={show} />
           ))}
