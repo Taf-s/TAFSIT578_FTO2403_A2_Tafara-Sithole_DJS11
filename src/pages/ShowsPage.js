@@ -49,14 +49,13 @@ const ShowsPage = () => {
    * This function is used to update the current episode in the EpisodePlayerContext
    * when a user clicks on an episode.
    */
+  const { playEpisode, openPlayer } = useEpisodePlayer();
+
   const handleEpisodeClick = (episode) => {
-    console.log(
-      "handleEpisodeClick called with episode:",
-      episode,
-      "This function is called when an episode is clicked."
-    );
     console.log("handleEpisodeClick called with episode:", episode);
     setCurrentEpisode(episode);
+    playEpisode(episode); // Use playEpisode to set the episode and open the player
+    openPlayer();
   };
 
   const handleFavoriteClick = (e, episode) => {
@@ -131,10 +130,6 @@ const ShowsPage = () => {
       </div>
     );
   }
-
-  console.log("show.genres:", show.genres);
-  console.log("show.seasons:", show.seasons);
-  console.log("episodes:", episodes);
 
   if (error)
     return (

@@ -1,6 +1,12 @@
-import React from "react";
+import { React, useState } from "react";
 import { useEpisodePlayer } from "../context/EpisodePlayerContext";
-import { FaPause, FaPlay, FaStepBackward, FaStepForward } from "react-icons/fa";
+import {
+  FaPause,
+  FaPlay,
+  FaStepBackward,
+  FaStepForward,
+  FaTimes,
+} from "react-icons/fa";
 
 function EpisodePlayer() {
   // Grab the episode player context
@@ -16,12 +22,42 @@ function EpisodePlayer() {
     formatTime,
   } = useEpisodePlayer();
 
+  const [isPlayerOpen, setIsPlayerOpen] = useState(true); // State to handle player visibility
+  const [showWarning, setShowWarning] = useState(false); // State to handle warning modal
+
+  // Function to handle close action
+  const handleClose = () => {
+    if (isPlaying) {
+      setShowWarning(true); // Show warning if audio is playing
+    } else {
+      setIsPlayerOpen(false); // Close player if audio is not playing
+    }
+  };
+
+  // Function to confirm closing the player
+  const confirmClose = () => {
+    playPause(); // Pause the audio
+    setIsPlayerOpen(false); // Close the player
+    setShowWarning(false); // Hide the warning modal
+  };
+
+  // If the player is closed, return null to not render anything
+  if (!isPlayerOpen) return null;
+
   // Create a JSX element for the episode player
   return (
-    <div className="max-w-5xl mx-auto p-4 rounded-lg sticky bottom-0 z-50 left-0 right-0 bg-customBlack text-white flex flex-col md:flex-row items-center justify-between shadow-lg transition-all duration-300 ease-in-out">
+    <div className="max-w-5xl mx-auto p-4 rounded-lg fixed bottom-0 z-50 left-0 right-0 bg-customBlack text-white flex flex-col md:flex-row items-center justify-between shadow-lg transition-all duration-300 ease-in-out">
       {/* If there is a current episode, display it */}
       {currentEpisode ? (
         <div className="flex items-center w-full">
+          {/* Close Button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors"
+            aria-label="Close"
+          >
+            <FaTimes size={20} />
+          </button>
           {/* Episode Info */}
           <div className="flex items-center space-x-4 w-1/3">
             {/* Episode Image (TODO: Implement) */}
@@ -94,8 +130,31 @@ function EpisodePlayer() {
       ) : (
         <p>Select an episode to play</p>
       )}
+      {/* Warning Modal */}
+      {showWarning && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg text-center">
+            <p className="mb-4 text-lg">
+              Audio is still playing. Are you sure you want to close the player?
+            </p>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={confirmClose}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Yes, Close
+              </button>
+              <button
+                onClick={() => setShowWarning(false)}
+                className="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
 export default EpisodePlayer;

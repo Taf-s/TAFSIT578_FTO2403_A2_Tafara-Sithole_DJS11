@@ -43,6 +43,18 @@ export function EpisodePlayerProvider({ children }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [episodeIndex, setEpisodeIndex] = useState(0);
+  const [isPlayerOpen, setIsPlayerOpen] = useState(false);
+
+  const playEpisode = (episode) => {
+    setCurrentEpisode(episode);
+    setIsPlayerOpen(true); // Update the state
+  };
+
+  const openPlayer = () => {
+    setIsPlayerOpen(true);
+  };
+
+  const closePlayer = () => setIsPlayerOpen(false);
 
   // A reference to the audio element.
   const audioRef = useRef(null);
@@ -172,6 +184,10 @@ export function EpisodePlayerProvider({ children }) {
         previousEpisode,
         nextEpisode,
         formatTime,
+        playEpisode,
+        openPlayer,
+        isPlayerOpen,
+        closePlayer,
       }}
     >
       {children}
