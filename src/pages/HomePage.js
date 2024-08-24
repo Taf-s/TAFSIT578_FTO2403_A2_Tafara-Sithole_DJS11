@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, Pagination, A11y } from "swiper/modules";
 import { SearchContext } from "../SearchProvider";
 import ShowCard from "../components/ShowCard";
 import sortShows from "../utils/sortShows";
-
+import "swiper/css";
+import "swiper/css/bundle";
 /**
  * A functional component representing the Home Page of the application.
  * It displays a carousel of shows, a dropdown to sort shows, and a grid of shows.
@@ -56,40 +57,27 @@ function HomePage() {
   /**
    * Get the first 5 shows to display in the carousel.
    */
-  const carouselShows = sortedShows.slice(0, 5);
+  const carouselShows = sortedShows.slice(0, 10);
 
   return (
     <div>
       {/* Carousel Section */}
-      <div className="my-8 ">
+      <div className="my-8 mt-4">
         <Swiper
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          centeredSlides={true}
-          slidesPerView={2}
-          spaceBetween={10}
-          slidesPerGroup={1}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
+          modules={[Navigation, Pagination, A11y]}
+          slidesPerView={3}
+          spaceBetween={30} // Adjusted space between slides
           navigation
           pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
         >
-          {/* Map the first 5 shows to SwiperSlide components */}
           {carouselShows.map((show) => (
-            <SwiperSlide key={show.id} className="w-full">
-              <div className="p-2">
-                {/* Render a ShowCard for each show */}
-                <ShowCard show={show} className="h-40" />
-              </div>
+            <SwiperSlide key={show.id}>
+              <ShowCard show={show} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+
       <div className="container mx-auto px-4 py-8">
         {/* Sort Dropdown */}
         <div className="flex justify-end mb-4 mt-20">
