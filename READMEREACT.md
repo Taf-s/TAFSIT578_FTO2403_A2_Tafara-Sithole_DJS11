@@ -22,6 +22,7 @@ src/
 │ └── logo.png
 |
 ├── components/
+│ ├── EpisodePlayer.js #The component comtaining the episode player
 │ ├── Navbar.js # Navigation bar component
 │ ├── ShowList.js # Component to list all shows
 │ ├── ShowCard.js # Component to display a single show with preview and details
@@ -31,12 +32,16 @@ src/
 │ └── EpisodePlayer.js # Component to play an episode
 │
 ├── context/
+├── EpisodePlayer.js #The component comtaining the episode player
+├── EpisodePlayer.js #The component comtaining the episode player
+├── EpisodePlayer.js #The component comtaining the episode player
 │ └── SearchProvider.js
 |
 ├── pages/
 │ ├── HomePage.js # Homepage with all shows listed
 │ ├── ShowPage.js # Detailed view of a specific show with seasons
 │ ├── GenrePage.js # Genre-specific page
+│ ├── GenreShowsPage.js # Genre-shoes page
 │ ├── FavouritesPage.js # Detailed view of all favourite shows
 │
 ├── services/
@@ -45,7 +50,10 @@ src/
 │ └── fetchShow.js
 |
 ├── utils/
-│ └── formatDate.js # Utility function to format dates
+│ └── fetchShowsDataUtils.js # Utility function to format dates
+│ └── genreUtils.js # Utility function that has genre mapping object
+│ └── search.js # Utility function to handle searching
+│ └── sortShows.js # Utility function for sorting shows
 └── search.js # Utility function for searching/filtering shows, seasons, or episodes
 │
 ├── App.js # Main application component
@@ -86,6 +94,9 @@ Plays a selected episode using a placeholder audio track.
 
 - **formatDate.js**: Utility function to format dates.
 - **search.js**: Utility function to search and filter shows, seasons, or episodes.
+- \*\* fetchShowsDataUtils.js: Utility function to handle fetching show data.
+- \*\*genreUtils.js: Utility function that has genre mapping object.
+- \*\*sortShows.js: Utility function for sorting shows.
 
 ## Routing
 
