@@ -6,7 +6,6 @@
 
 export async function fetchGenre() {
   const genres = [];
-  console.log(genres);
 
   for (let id = 1; id <= 9; id++) {
     try {

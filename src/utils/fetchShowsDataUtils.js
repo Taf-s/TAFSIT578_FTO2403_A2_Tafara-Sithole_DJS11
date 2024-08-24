@@ -8,7 +8,7 @@ export const fetchShowsData = async (
   setShowsLoading = () => {}
 ) => {
   // Print a message to console so we can see that we called the function
-  console.log("setShowsLoading:", setShowsLoading);
+
   // Set the loading state to true
   setShowsLoading(true);
   try {

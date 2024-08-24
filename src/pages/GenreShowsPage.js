@@ -67,7 +67,6 @@ function GenreShowsPage() {
     return <div>Genre not found</div>; // Handle genre not found
   }
 
-  console.log(shows);
   return (
     <EpisodePlayerProvider>
       <div className="container mx-auto px-4 py-8">

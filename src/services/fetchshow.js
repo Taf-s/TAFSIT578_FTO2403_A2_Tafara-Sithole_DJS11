@@ -1,10 +1,8 @@
 import { fetchGenre } from "./fetchgenre";
 export async function fetchShows() {
-  console.log("fetchAllShows function called");
   try {
     // Step 1: Fetch all genres
     const genres = await fetchGenre();
-    console.log("genres:", genres);
 
     // Step 2: Extract all show IDs from all genres
     const allShowIds = genres.reduce(

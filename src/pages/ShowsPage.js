@@ -52,7 +52,6 @@ const ShowsPage = () => {
   const { playEpisode, openPlayer } = useEpisodePlayer();
 
   const handleEpisodeClick = (episode) => {
-    console.log("handleEpisodeClick called with episode:", episode);
     setCurrentEpisode(episode);
     playEpisode(episode); // Use playEpisode to set the episode and open the player
     openPlayer();

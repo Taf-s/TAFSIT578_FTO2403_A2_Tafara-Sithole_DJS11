@@ -114,7 +114,6 @@ export function EpisodePlayerProvider({ children }) {
   // A function to play or pause the audio.
   const playPause = () => {
     if (audioRef.current) {
-      console.log("Audio src:", audioRef.current.src);
       if (isPlaying) {
         audioRef.current.pause();
       } else {
@@ -126,9 +125,6 @@ export function EpisodePlayerProvider({ children }) {
 
   // A function to go to the previous episode.
   const previousEpisode = () => {
-    console.log("Previous episode clicked");
-    console.log("Current episode index:", episodeIndex);
-    console.log("Shows length:", shows?.length);
     if (shows && shows.length > 0) {
       if (episodeIndex > 0) {
         setEpisodeIndex(episodeIndex - 1);
@@ -136,14 +132,10 @@ export function EpisodePlayerProvider({ children }) {
         setEpisodeIndex(shows.length - 1);
       }
     }
-    console.log("New episode index:", episodeIndex);
   };
 
   // A function to go to the next episode.
   const nextEpisode = () => {
-    console.log("Next episode clicked");
-    console.log("Current episode index:", episodeIndex);
-    console.log("Shows length:", shows?.length);
     if (shows && shows.length > 0) {
       if (episodeIndex < shows.length - 1) {
         setEpisodeIndex(episodeIndex + 1);
@@ -151,7 +143,6 @@ export function EpisodePlayerProvider({ children }) {
         setEpisodeIndex(0);
       }
     }
-    console.log("New episode index:", episodeIndex);
   };
 
   // A function to format a time in seconds to a string

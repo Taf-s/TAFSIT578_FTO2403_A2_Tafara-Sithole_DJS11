@@ -12,14 +12,6 @@ function ShowCard({ show }) {
   // - seasons: an array of season objects associated with the show
   // - updated: a timestamp indicating when the show was last updated
 
-  // We log the show object to the console for debugging purposes.
-  console.log("Rendering show:", show);
-
-  // We also log the genres and seasons arrays to the console,
-  // so we can see their structure.
-  console.log("Show genres:", show.genres);
-  console.log("Show seasons:", show.seasons);
-
   // We return a JSX element that represents the show card.
   // The element is a div with a class of "bg-white shadow-lg rounded-lg overflow-hidden relative".
   // This sets up the basic styling for the card.

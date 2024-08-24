@@ -32,9 +32,10 @@ src/
 │ └── EpisodePlayer.js # Component to play an episode
 │
 ├── context/
-├── EpisodePlayer.js #The component comtaining the episode player
-├── EpisodePlayer.js #The component comtaining the episode player
-├── EpisodePlayer.js #The component comtaining the episode player
+├── EpisodePlayerContext.js #Provides episode player context
+├── favoriteEpisodeContext.js #Provides favorite Episode context
+├── GenresContext.js #Provides Genres context
+├── ShowsContext.js #Provides Shows context
 │ └── SearchProvider.js
 |
 ├── pages/
@@ -45,9 +46,9 @@ src/
 │ ├── FavouritesPage.js # Detailed view of all favourite shows
 │
 ├── services/
-│ ├── fetchPreviews.js
-│ ├── fetchGenre.js
-│ └── fetchShow.js
+│ ├── fetchPreviews.js # Fetches show previews from API endpoitn
+│ ├── fetchGenre.js # Fetches genre from api ednpoint
+│ └── fetchShow.js # Fetches shows from API endpoint
 |
 ├── utils/
 │ └── fetchShowsDataUtils.js # Utility function to format dates
