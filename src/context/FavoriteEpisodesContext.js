@@ -73,61 +73,63 @@ export function FavoriteEpisodesProvider({ children }) {
     seasonImage,
     episode
   ) => {
-    const timestamp = new Date().toLocaleString(); // Capture the current timestamp
+    const timestamp = new Date().toISOString(); // Define timestamp here
+    console.log("Adding favorite episode:", {
+      showId,
+      showTitle,
+      seasonNumber,
+      seasonTitle,
+      episode,
+    });
 
-    // Make a copy of the current favorite episodes
     setFavoriteEpisodes((prevFavorites) => {
+      // Ensure prevFavorites is an array
       const updatedFavorites = Array.isArray(prevFavorites)
         ? [...prevFavorites]
         : [];
 
-      // Find the show in the list of favorite episodes
+      // Find the show in the favorites
       const showIndex = updatedFavorites.findIndex(
-        (item) => item.showId === showId
+        (show) => show.id === showId
       );
 
-      // If the show is already in the list of favorite episodes
       if (showIndex !== -1) {
-        // Find the season in the show's seasons
+        // Show exists, find the season
         const seasonIndex = updatedFavorites[showIndex].seasons.findIndex(
-          (season) => season.number === seasonNumber
+          (season) => season.season === seasonNumber
         );
 
-        // If the season is already in the list of seasons
         if (seasonIndex !== -1) {
-          // Check if the episode is already in the list of episodes for that season
+          // Season exists, check if episode already exists
           const episodeExists = updatedFavorites[showIndex].seasons[
             seasonIndex
-          ].episodes.some((ep) => ep.id === episode.id);
+          ].episodes.some((ep) => ep.episode === episode.episode);
 
-          // If the episode is not already in the list of episodes
           if (!episodeExists) {
-            // Add the episode to the list of episodes for that season
+            // Add new episode to existing season
             updatedFavorites[showIndex].seasons[seasonIndex].episodes.push({
               ...episode,
-              timestamp, // Add the current timestamp to the episode
+              timestamp,
             });
           }
         } else {
-          // Add the season to the list of seasons for that show
-          // and add the episode to the list of episodes for that season
+          // Add new season with the episode
           updatedFavorites[showIndex].seasons.push({
-            number: seasonNumber,
+            season: seasonNumber,
+            title: seasonTitle,
             image: seasonImage,
             episodes: [{ ...episode, timestamp }],
           });
         }
       } else {
-        // Add the show to the list of favorite episodes
-        // and add the season to the list of seasons for that show
-        // and add the episode to the list of episodes for that season
+        // Add new show with the season and episode
         updatedFavorites.push({
-          showId,
-          showTitle,
-          // episode.title,
+          id: showId,
+          title: showTitle,
           seasons: [
             {
-              number: seasonNumber,
+              season: seasonNumber,
+              title: seasonTitle,
               image: seasonImage,
               episodes: [{ ...episode, timestamp }],
             },
@@ -135,7 +137,7 @@ export function FavoriteEpisodesProvider({ children }) {
         });
       }
 
-      // Return the updated list of favorite episodes
+      console.log("Updated favorites:", updatedFavorites);
       return updatedFavorites;
     });
   };
@@ -149,7 +151,7 @@ export function FavoriteEpisodesProvider({ children }) {
    * @return {void}
    */
 
-  const removeFavoriteEpisode = (showId, seasonNumber, episodeId) => {
+  const removeFavoriteEpisode = (showId, seasonNumber, episodeNumber) => {
     setFavoriteEpisodes((prevFavorites) => {
       const updatedFavorites = Array.isArray(prevFavorites)
         ? [...prevFavorites]
@@ -157,16 +159,16 @@ export function FavoriteEpisodesProvider({ children }) {
 
       return updatedFavorites
         .map((item) => {
-          if (item.showId !== showId) return item;
+          if (item.id !== showId) return item;
           return {
             ...item,
             seasons: item.seasons
               .map((season) => {
-                if (season.number !== seasonNumber) return season;
+                if (season.season !== seasonNumber) return season;
                 return {
                   ...season,
                   episodes: season.episodes.filter(
-                    (episode) => episode.id !== episodeId
+                    (episode) => episode.episode !== episodeNumber
                   ),
                 };
               })
@@ -178,25 +180,34 @@ export function FavoriteEpisodesProvider({ children }) {
   };
 
   function isFavoriteEpisode(showId, seasonNumber, episodeNumber) {
-    // Step 1: Find the show with the given showId
-    const show = favoriteEpisodes.find((show) => show.showId === showId);
-    if (!show) {
-      return false; // Show not found
+    console.log("Checking if favorite:", {
+      showId,
+      seasonNumber,
+      episodeNumber,
+    });
+
+    if (!Array.isArray(favoriteEpisodes)) {
+      console.log("favoriteEpisodes is not an array:", favoriteEpisodes);
+      return false;
     }
 
-    // Step 2: Find the season with the given seasonNumber
-    const season = show.seasons.find(
-      (season) => season.number === seasonNumber
+    if (episodeNumber === undefined) {
+      console.log("episodeNumber is undefined");
+      return false;
+    }
+
+    const isFavorite = favoriteEpisodes.some(
+      (show) =>
+        show.id === showId &&
+        show.seasons.some(
+          (season) =>
+            season.season === seasonNumber &&
+            season.episodes.some((episode) => episode.episode === episodeNumber)
+        )
     );
-    if (!season) {
-      return false; // Season not found
-    }
 
-    // Step 3: Check if the episode exists in the episodes array
-    const episodeExists = season.episodes.includes(episodeNumber);
-
-    // Step 4: Return true if the episode exists, otherwise false
-    return episodeExists;
+    console.log("Is favorite:", isFavorite);
+    return isFavorite;
   }
 
   return (

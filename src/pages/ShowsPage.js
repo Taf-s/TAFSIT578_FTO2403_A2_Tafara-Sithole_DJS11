@@ -18,8 +18,6 @@ const ShowsPage = () => {
 
   // Context Debugging
   const favoriteContext = useContext(FavoriteEpisodesContext);
-  console.log(favoriteContext); // Check if this logs the expected values
-
   const { addFavoriteEpisode, removeFavoriteEpisode, isFavoriteEpisode } =
     favoriteContext || {};
 
@@ -33,7 +31,7 @@ const ShowsPage = () => {
       // Update state with these episodes
       setEpisodes(episodes);
 
-      // Set the selected season ID
+      // Set the selected season number
       setSelectedSeason(season.season);
     } catch (err) {
       console.error("Error fetching episodes:", err);
@@ -60,18 +58,31 @@ const ShowsPage = () => {
   const handleFavoriteClick = (e, episode) => {
     e.stopPropagation(); // Prevent triggering the episode click
 
+    if (!addFavoriteEpisode || !removeFavoriteEpisode || !isFavoriteEpisode) {
+      console.error("Favorite episode functions are not available");
+      return;
+    }
+
+    // Find the current season object
+    const currentSeason = show.seasons.find((s) => s.season === selectedSeason);
+
+    if (!currentSeason) {
+      console.error("Current season not found");
+      return;
+    }
+
     // Check if the episode is already a favorite
-    if (isFavoriteEpisode(showId, selectedSeason, episode.id)) {
-      removeFavoriteEpisode(showId, selectedSeason, episode.id);
+    if (isFavoriteEpisode(show.id, currentSeason.season, episode.episode)) {
+      removeFavoriteEpisode(show.id, currentSeason.season, episode.episode);
     } else {
       // Add the favorite episode with additional data
       addFavoriteEpisode(
-        showId, // Pass the show ID
-        show.title, // Pass the show title
-        selectedSeason.season, // Pass the season number
-        selectedSeason.title, // Pass the season title
-        selectedSeason.image, // Pass the season image
-        episode // Pass the episode details
+        show.id,
+        show.title,
+        currentSeason.season,
+        currentSeason.title,
+        currentSeason.image,
+        episode
       );
     }
   };
@@ -209,7 +220,12 @@ const ShowsPage = () => {
                       className="ml-2"
                       onClick={(e) => handleFavoriteClick(e, episode)}
                     >
-                      {isFavoriteEpisode(showId, selectedSeason, episode.id) ? (
+                      {isFavoriteEpisode &&
+                      isFavoriteEpisode(
+                        show.id,
+                        selectedSeason,
+                        episode.episode
+                      ) ? (
                         <FaHeart className="text-lg text-customRed" />
                       ) : (
                         <FaRegHeart className="text-lg text-gray-400" />

@@ -60,9 +60,9 @@ function EpisodePlayer() {
           </button>
           {/* Episode Info */}
           <div className="flex items-center space-x-4 w-1/3">
-            {/* Episode Image (TODO: Implement) */}
+            {/* Episode Image */}
             <img
-              //   src={currentEpisode.season.image}
+              src={currentEpisode.season?.image || "/default-episode-image.jpg"}
               alt={currentEpisode.title}
               className="w-12 h-12 object-cover rounded"
             />
