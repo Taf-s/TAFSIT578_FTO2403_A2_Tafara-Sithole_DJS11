@@ -38,6 +38,7 @@ export function EpisodePlayerProvider({ children }) {
   // of the audio, the duration of the audio, and the index of the
   // current episode in the list of shows.
   const [currentEpisode, setCurrentEpisode] = useState(null);
+  const [currentShow, setCurrentShow] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [shows, setShows] = useState([]);
   const [currentTime, setCurrentTime] = useState(0);
@@ -45,9 +46,10 @@ export function EpisodePlayerProvider({ children }) {
   const [episodeIndex, setEpisodeIndex] = useState(0);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
 
-  const playEpisode = (episode) => {
+  const playEpisode = (episode, show) => {
     setCurrentEpisode(episode);
-    setIsPlayerOpen(true); // Update the state
+    setCurrentShow(show);
+    // Add any additional logic for playing the episode
   };
 
   const openPlayer = () => {
@@ -95,7 +97,6 @@ export function EpisodePlayerProvider({ children }) {
       episodeIndex >= 0 &&
       episodeIndex < shows.length
     ) {
-      console.log("Updating current episode");
       setCurrentEpisode(shows[episodeIndex]);
     }
   }, [shows, episodeIndex]);
@@ -165,7 +166,8 @@ export function EpisodePlayerProvider({ children }) {
     <EpisodePlayerContext.Provider
       value={{
         currentEpisode,
-        setCurrentEpisode,
+        currentShow,
+        playEpisode,
         isPlaying,
         playPause,
         shows,
@@ -175,7 +177,6 @@ export function EpisodePlayerProvider({ children }) {
         previousEpisode,
         nextEpisode,
         formatTime,
-        playEpisode,
         openPlayer,
         isPlayerOpen,
         closePlayer,

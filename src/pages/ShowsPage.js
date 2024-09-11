@@ -14,7 +14,7 @@ const ShowsPage = () => {
   const { shows, loading, error } = useContext(ShowsContext);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [episodes, setEpisodes] = useState([]);
-  const { setCurrentEpisode } = useEpisodePlayer();
+  const { playEpisode } = useEpisodePlayer();
 
   // Context Debugging
   const favoriteContext = useContext(FavoriteEpisodesContext);
@@ -42,17 +42,13 @@ const ShowsPage = () => {
    * This function is called when an episode is clicked.
    * It takes an episode object as an argument.
    * It logs the episode object to the console for debugging purposes.
-   * It then calls the setCurrentEpisode function from the EpisodePlayerContext
+   * It then calls the playEpisode function from the EpisodePlayerContext
    * and passes the episode object to it.
    * This function is used to update the current episode in the EpisodePlayerContext
    * when a user clicks on an episode.
    */
-  const { playEpisode, openPlayer } = useEpisodePlayer();
-
-  const handleEpisodeClick = (episode) => {
-    setCurrentEpisode(episode);
-    playEpisode(episode); // Use playEpisode to set the episode and open the player
-    openPlayer();
+  const handleEpisodeClick = (episode, show) => {
+    playEpisode(episode, show);
   };
 
   const handleFavoriteClick = (e, episode) => {
@@ -208,7 +204,7 @@ const ShowsPage = () => {
               <li
                 key={episode.id}
                 className="bg-customBackground rounded-lg shadow-md w-full mb-4 p-4 cursor-pointer border hover:border-customBlue flex flex-col"
-                onClick={() => handleEpisodeClick(episode)}
+                onClick={() => handleEpisodeClick(episode, show)}
               >
                 <span className="text-2xl text-white leading-none mb-2">
                   {episode.title}

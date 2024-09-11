@@ -12,6 +12,7 @@ function EpisodePlayer() {
   // Grab the episode player context
   const {
     currentEpisode,
+    currentShow,
     isPlaying,
     playPause,
     currentTime,
@@ -44,6 +45,17 @@ function EpisodePlayer() {
   // If the player is closed, return null to not render anything
   if (!isPlayerOpen) return null;
 
+  // Early return if no current episode or show
+  if (!currentEpisode || !currentShow) {
+    return null;
+  }
+
+  // Find the correct season and its image
+  const currentSeason = currentShow.seasons.find((season) =>
+    season.episodes.some((ep) => ep.episode === currentEpisode.episode)
+  );
+  const seasonImage = currentSeason ? currentSeason.image : currentShow.image;
+
   // Create a JSX element for the episode player
   return (
     <div className="max-w-5xl mx-auto p-4 rounded-lg fixed bottom-0 z-50 left-0 right-0 bg-customBlack text-white flex flex-col md:flex-row items-center justify-between shadow-lg transition-all duration-300 ease-in-out">
@@ -62,7 +74,7 @@ function EpisodePlayer() {
           <div className="flex items-center space-x-4 w-1/3">
             {/* Episode Image */}
             <img
-              src={currentEpisode.season?.image || "/default-episode-image.jpg"}
+              src={seasonImage}
               alt={currentEpisode.title}
               className="w-12 h-12 object-cover rounded"
             />
@@ -157,4 +169,5 @@ function EpisodePlayer() {
     </div>
   );
 }
+
 export default EpisodePlayer;

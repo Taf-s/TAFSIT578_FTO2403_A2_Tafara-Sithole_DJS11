@@ -52,8 +52,6 @@ export function FavoriteEpisodesProvider({ children }) {
     localStorage.setItem("favoriteEpisodes", JSON.stringify(favoriteEpisodes));
   }, [favoriteEpisodes]);
 
-  console.log("favoriteEpisodes", favoriteEpisodes);
-
   /**
    * Adds a favorite episode to the list of favorite episodes.
    *
@@ -74,13 +72,6 @@ export function FavoriteEpisodesProvider({ children }) {
     episode
   ) => {
     const timestamp = new Date().toISOString(); // Define timestamp here
-    console.log("Adding favorite episode:", {
-      showId,
-      showTitle,
-      seasonNumber,
-      seasonTitle,
-      episode,
-    });
 
     setFavoriteEpisodes((prevFavorites) => {
       // Ensure prevFavorites is an array
@@ -136,8 +127,6 @@ export function FavoriteEpisodesProvider({ children }) {
           ],
         });
       }
-
-      console.log("Updated favorites:", updatedFavorites);
       return updatedFavorites;
     });
   };
@@ -180,19 +169,11 @@ export function FavoriteEpisodesProvider({ children }) {
   };
 
   function isFavoriteEpisode(showId, seasonNumber, episodeNumber) {
-    console.log("Checking if favorite:", {
-      showId,
-      seasonNumber,
-      episodeNumber,
-    });
-
     if (!Array.isArray(favoriteEpisodes)) {
-      console.log("favoriteEpisodes is not an array:", favoriteEpisodes);
       return false;
     }
 
     if (episodeNumber === undefined) {
-      console.log("episodeNumber is undefined");
       return false;
     }
 
@@ -206,7 +187,6 @@ export function FavoriteEpisodesProvider({ children }) {
         )
     );
 
-    console.log("Is favorite:", isFavorite);
     return isFavorite;
   }
 
